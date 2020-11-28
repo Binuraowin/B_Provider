@@ -58,7 +58,7 @@ Stream<AuthUser> get user{
 
   Future signinwithMicrosoft() async{
     try {
-      UserCredential result = await _auth.s
+      // UserCredential result = await _auth.s
       
     } catch (e) {
     }
