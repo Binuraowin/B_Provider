@@ -34,7 +34,7 @@ List<Brew> _brewFromSnapshots(QuerySnapshot snapshot) {
     return Brew(
       name:doc.data()['name'] ?? '',
       strength:doc.data()['strength'] ?? '',
-      sugars:doc.data()['sugars'] ?? '',
+      sugars:doc.data()['sugars'] ?? '', reference: null,
 
 
     );
