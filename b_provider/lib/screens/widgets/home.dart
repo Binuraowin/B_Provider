@@ -1,22 +1,25 @@
-import 'package:b_provider/models/categoryModel.dart';
-import 'package:b_provider/screens/home/category_list.dart';
-import 'package:b_provider/services/auth.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:b_provider/models/brew.dart';
+import 'package:b_provider/models/product.dart';
+import 'package:b_provider/screens/widgets/brew_list.dart';
 import 'package:b_provider/services/database.dart';
+import 'package:flutter/material.dart';
+import 'package:b_provider/services/auth.dart';
+import 'package:provider/provider.dart';
+class Home extends StatefulWidget {
+  final String categoryName;
 
-class CategoryPage extends StatefulWidget {
+  const Home({Key key, this.categoryName}) : super(key: key);
   @override
-  _CategoryPageState createState() => _CategoryPageState();
+  _HomeState createState() => _HomeState();
 }
 
-class _CategoryPageState extends State<CategoryPage> {
-  final AuthService _auth = AuthService();
-  CategoryModel categoryModel;
+class _HomeState extends State<Home> {
+    final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<CategoryModel>>.value(
-      value:DatabaseService().category,
+    return StreamProvider<List<Product>>.value(
+      value:DatabaseService().products,
           child: Scaffold(
      backgroundColor: Colors.blue[100],
       body:ListView(
@@ -27,18 +30,18 @@ class _CategoryPageState extends State<CategoryPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-            //         IconButton(
-            // icon: Icon(Icons.arrow_back_ios), 
-            // color: Colors.white,
-            // onPressed: () {
-              
-            // }),
+                    IconButton(
+            icon: Icon(Icons.arrow_back_ios), 
+            color: Colors.white,
+            onPressed: () {
+              Navigator.pop(context);
+            }),
           Container(
             width: 125.0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-               IconButton(
+                IconButton(
                   icon: Icon(Icons.people, ),
                   color: Colors.white,    
                   onPressed: () async{
@@ -92,7 +95,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   Padding(padding: EdgeInsets.only(top: 45.0),
                   child: Container(
                     height: MediaQuery.of(context).size.height -300.0,
-                    child: CategoryList(),
+                    child: BrewList(),
                   ),
                   ),
                   // SizedBox(height: 50.0,),
@@ -164,5 +167,5 @@ class _CategoryPageState extends State<CategoryPage> {
       ),
     )
     );
-}
-}
+  }
+} 

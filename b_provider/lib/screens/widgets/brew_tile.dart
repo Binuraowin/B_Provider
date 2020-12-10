@@ -1,5 +1,5 @@
 import 'package:b_provider/models/product.dart';
-import 'package:b_provider/screens/home/details.dart';
+import 'package:b_provider/screens/widgets//details.dart';
 import 'package:b_provider/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:b_provider/models/brew.dart';

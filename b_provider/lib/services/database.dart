@@ -6,7 +6,7 @@ import 'package:b_provider/models/categoryModel.dart';
 import 'package:b_provider/models/product.dart';
 
 class DatabaseService {
-
+  FirebaseFirestore _db = FirebaseFirestore.instance;
 //   DatabaseService(this.uid);
   final CollectionReference brewreference = Firestore.instance.collection('brews');
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -25,9 +25,9 @@ class DatabaseService {
      'name':name,
      'strength':strength,
      'sugars':sugars,
-  
-    });  
- 
+
+    });
+
   }
 List<Brew> _brewFromSnapshots(QuerySnapshot snapshot) {
   return snapshot.docs.map((doc){
@@ -41,12 +41,12 @@ List<Brew> _brewFromSnapshots(QuerySnapshot snapshot) {
 
   }).toList();
 
-  
+
 }
 
 Stream<List<Brew>> get transports{
-  return brewreference.snapshots().map(_brewFromSnapshots); 
-    
+  return brewreference.snapshots().map(_brewFromSnapshots);
+
 }
 List<Product> _productsfoemSnapshots(QuerySnapshot snapshot) {
   return snapshot.docs.map((doc){
@@ -62,7 +62,7 @@ List<Product> _productsfoemSnapshots(QuerySnapshot snapshot) {
 
   }).toList();
 
-  
+
 }
 
 Stream<List<Product>> get products{
@@ -71,64 +71,16 @@ Stream<List<Product>> get products{
   return categoryreference.doc('foods').collection('Rice').snapshots().map(_productsfoemSnapshots);
 }
 
-// Stream<List<Product>> get product{
- 
-// }
 
 
 
-List<CategoryModel> _categoryfoemSnapshots(QuerySnapshot snapshot) {
-  return snapshot.docs.map((doc){
-    print(doc.id);
-    return CategoryModel(
-      name:doc.id ?? '',
+  Stream<List<CategoryModel>> getCategories() {
+    return _db.collection('categories').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => CategoryModel.fromJson(doc.data())).toList());
+  }
+//Stream<List<CategoryModel>> get category{
+//  return categoryreference.snapshots().map(_categoryfoemSnapshots);
+//}
 
 
-    ); 
-
-  }).toList();
-
-  
-}
-Stream<List<CategoryModel>> get category{
-  return categoryreference.snapshots().map(_categoryfoemSnapshots);
-}
-
-// Product getproducts(categoryName){
-//  FirebaseFirestore.instance
-//     .collection('users')
-//     .doc(categoryName).collection(collectionPath)
-//     .get()
-//     .then((DocumentSnapshot documentSnapshot) {
-//       print(categoryName);
-//          return Product(
-//       address:documentSnapshot.data()['address'] ?? '',
-//       description:documentSnapshot.data()['description'] ?? '',
-//       price:documentSnapshot.data()['price'] ?? '',
-//       productName:documentSnapshot.data()['productName'] ?? '',
-//       shopName:documentSnapshot.data()['shopName'] ?? '',
-
-
-//     );
-//     });
-// }
-
-//   final firestoreInstance = FirebaseFirestore.instance;
-// Future updateUserData(String sugars, String name, int strength) async{
-//   var firebaseUser =  FirebaseAuth.instance.currentUser;
-//   return await firestoreInstance.collection('brews').doc(firebaseUser.uid).set({
-//     'sugars': sugars,
-//     'name' : name,
-//     'strength': strength
-//   }
-
-//   );
-// }
-// Future getbrews() async{
-//   return await firestoreInstance.collection('brews').get().then((value) => 
-//   value.docs.forEach((element) { 
-//     print(element.data());
-//   }));
-// }
-  
   }

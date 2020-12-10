@@ -1,5 +1,5 @@
 import 'package:b_provider/models/categoryModel.dart';
-import 'package:b_provider/screens/home/category_tile.dart';
+import 'package:b_provider/screens/widgets/category_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +15,7 @@ class _CategoryListState extends State<CategoryList> {
         return ListView.builder(
       itemCount: category.length,
       itemBuilder: (context, index) {
-        return CategoryTile(categoryModel: category[index]);
+//        return CategoryTile(categoryModel: category[index]);
       },
     );
   }
