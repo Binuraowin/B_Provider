@@ -1,3 +1,4 @@
+import 'package:b_provider/models/subCategoryModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:b_provider/models/authUser.dart';
@@ -77,6 +78,10 @@ Stream<List<Product>> get products{
   Stream<List<CategoryModel>> getCategories() {
     return _db.collection('categories').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => CategoryModel.fromJson(doc.data())).toList());
+  }
+  Stream<List<SubCategoryModel>> getSubCategories(docId) {
+    return _db.collection('categories').doc(docId).collection('subCategories').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => SubCategoryModel.fromJson(doc.data())).toList());
   }
 //Stream<List<CategoryModel>> get category{
 //  return categoryreference.snapshots().map(_categoryfoemSnapshots);
