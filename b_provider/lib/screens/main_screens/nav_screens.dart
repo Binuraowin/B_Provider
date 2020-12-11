@@ -13,7 +13,7 @@ class NavScreen extends StatefulWidget {
 
 class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
-    SubCategoryPage(id: 'wQUQRzDTubHd8KwI2wLg',),
+    SubCategoryPage(),
     Scaffold(),
     Scaffold(),
 

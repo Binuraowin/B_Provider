@@ -19,7 +19,7 @@ final String id;
 
            Navigator.push(context,
             MaterialPageRoute(
-        builder:(context) =>SubCategoryPage(id: id,)
+        builder:(context) =>SubCategoryPage()
          ),);
 
         //     Navigator.push(context,
