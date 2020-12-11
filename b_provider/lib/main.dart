@@ -1,4 +1,5 @@
 import 'package:b_provider/screens/main_screens/category_mainPage.dart';
+import 'package:b_provider/screens/main_screens/nav_screens.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:b_provider/screens/wrapper.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
 
-      home: CategoryPage(),
+      home: NavScreen(),
     );
   }
 }
