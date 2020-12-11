@@ -53,13 +53,13 @@ class _AddListState extends State<AddList> {
         ),
         actions: [
           FlatButton.icon(
-//              onPressed: () async{
+              onPressed: () async{
 //                await DatabaseService().signInAnon();
-//              },
-//              icon: Icon(Icons.person , color: Colors.white,),
-//              label: Text('Register',
-//                style: TextStyle(color: Colors.white),
-//              )
+              },
+              icon: Icon(Icons.person , color: Colors.white,),
+              label: Text('Register',
+                style: TextStyle(color: Colors.white),
+              )
           )
         ],
       ) ,
@@ -104,11 +104,25 @@ class _AddListState extends State<AddList> {
                           uploadImage();
                         }
                     ),
+                    SizedBox(height: 20.0),
+                    RaisedButton(
+                        color: Colors.blue[700],
+                        child: Text(
+                          'Add Location',
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                        ),
+                        onPressed: () async{
+
+                          uploadImage();
+                        }
+                    ),
 
                     SizedBox(height: 20.0),
-                    (imageUrl != null)
-                        ? Image.network(imageUrl)
-                        : Placeholder(fallbackHeight: 150.0,fallbackWidth: double.infinity, color: Colors.transparent,),
+//                    (imageUrl != null)
+//                        ? Image.network(imageUrl)
+//                        : Placeholder(fallbackHeight: 150.0,fallbackWidth: double.infinity, color: Colors.transparent,),
                     SizedBox(height: 20.0),
                     RaisedButton(
                         color: Colors.blue[700],
@@ -120,7 +134,7 @@ class _AddListState extends State<AddList> {
                         ),
                         onPressed: () async{
                           if(caption != null || imageUrl != null){
-                            DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
+                           // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
 
                             Navigator.push(context,
                               MaterialPageRoute(
