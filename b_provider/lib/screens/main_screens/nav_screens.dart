@@ -18,7 +18,7 @@ class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
     SubCategoryPage(),
     Scaffold(),
-    MapsDemo(),
+    MyHomePage(),
 
   ];
   final List<IconData> _icons = const [

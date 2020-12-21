@@ -55,9 +55,7 @@ _initialPosition = LatLng(position.latitude, position.longitude);
 });
 // print(testloc);
 }
- setState(() {
-   _initialPosition = LatLng(testloc.latitude, testloc.longitude);
- });
+
 updateMarkerAndCircle(testloc);
 animateCamera(testloc);
 print(testloc);
