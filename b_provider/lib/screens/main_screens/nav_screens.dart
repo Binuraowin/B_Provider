@@ -1,3 +1,6 @@
+import 'package:b_provider/main.dart';
+import 'package:b_provider/screens/main_screens/map.dart';
+import 'package:b_provider/screens/main_screens/mapsnext.dart';
 import 'package:b_provider/screens/main_screens/subCategoryPage.dart';
 import 'package:b_provider/screens/widgets/custom_tab_bar.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +18,7 @@ class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
     SubCategoryPage(),
     Scaffold(),
-    Scaffold(),
+    MapsDemo(),
 
   ];
   final List<IconData> _icons = const [

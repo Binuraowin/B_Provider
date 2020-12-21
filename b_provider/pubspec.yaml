@@ -38,6 +38,9 @@ dependencies:
   firebase_storage: ^5.0.0
   image_picker: ^0.6.7+14
   permission_handler: ^5.0.1+1
+  google_maps_flutter: ^1.0.6
+  geolocator: ^6.1.13
+  geocoder: ^0.2.1
 
 
 dev_dependencies:
