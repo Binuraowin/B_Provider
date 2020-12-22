@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
+import 'package:b_provider/screens/main_screens/map.dart';
 
 class AddList extends StatefulWidget {
   @override
@@ -81,7 +82,29 @@ class _AddListState extends State<AddList> {
                     SizedBox(height: 100.0),
                     TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'Caption',
+                        hintText: 'Name',
+                      ),
+                      validator: (val) => val.isEmpty  ? 'enter Name' :null,
+                      onChanged: (val){
+                        setState(() {
+                          caption= val;
+                        });
+                      },
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Description',
+                      ),
+                      validator: (val) => val.isEmpty  ? 'enter Description' :null,
+                      onChanged: (val){
+                        setState(() {
+                          caption= val;
+                        });
+                      },
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Units',
                       ),
                       validator: (val) => val.isEmpty  ? 'enter Caption' :null,
                       onChanged: (val){
@@ -90,6 +113,8 @@ class _AddListState extends State<AddList> {
                         });
                       },
                     ),
+                    SizedBox(height: 20.0),
+
                     SizedBox(height: 20.0),
                     RaisedButton(
                         color: Colors.blue[700],
@@ -104,7 +129,6 @@ class _AddListState extends State<AddList> {
                           uploadImage();
                         }
                     ),
-                    SizedBox(height: 20.0),
                     RaisedButton(
                         color: Colors.blue[700],
                         child: Text(
@@ -113,9 +137,11 @@ class _AddListState extends State<AddList> {
                               color: Colors.white
                           ),
                         ),
-                        onPressed: () async{
-
-                          uploadImage();
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MyHomePage()),
+                          );
                         }
                     ),
 

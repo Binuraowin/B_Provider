@@ -50,6 +50,7 @@ testloc = LatLng(markervalue.latitude, markervalue.longitude);
 // print(testloc);
 } else {
 testloc = LatLng(position.latitude, position.longitude);
+_showMyDialog();
 setState(() {
 _initialPosition = LatLng(position.latitude, position.longitude);
 });
@@ -206,4 +207,31 @@ shareLocationButton();
 }),
 );
 }
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Add location'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('If this is not your product location Drag the marker and drop to the actual location'),
+
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

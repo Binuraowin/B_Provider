@@ -84,7 +84,7 @@ Stream<List<Product>> get products{
         snapshot.docs.map((doc) => SubCategoryModel.fromJson(doc.data())).toList());
   }
   Stream<List<SubCategoryModel>> getSubCategoriesById(providerId) {
-    return _db.collection('categories').doc().collection('subCategories').where('providerId', isEqualTo: 'wdsd').snapshots().map((snapshot) =>
+    return _db.collection('categories').doc('wQUQRzDTubHd8KwI2wLg').collection('subCategories').where('providerId', isEqualTo: 'wdsd').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => SubCategoryModel.fromJson(doc.data())).toList());
   }
 //Stream<List<CategoryModel>> get category{
