@@ -113,6 +113,17 @@ class _AddListState extends State<AddList> {
                         });
                       },
                     ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Unit Price',
+                      ),
+                      validator: (val) => val.isEmpty  ? 'enter Caption' :null,
+                      onChanged: (val){
+                        setState(() {
+                          caption= val;
+                        });
+                      },
+                    ),
                     SizedBox(height: 20.0),
 
                     SizedBox(height: 20.0),
@@ -146,9 +157,9 @@ class _AddListState extends State<AddList> {
                     ),
 
                     SizedBox(height: 20.0),
-//                    (imageUrl != null)
-//                        ? Image.network(imageUrl)
-//                        : Placeholder(fallbackHeight: 150.0,fallbackWidth: double.infinity, color: Colors.transparent,),
+                    (imageUrl != null)
+                        ? Image.network(imageUrl)
+                        : Placeholder(fallbackHeight: 150.0,fallbackWidth: double.infinity, color: Colors.transparent,),
                     SizedBox(height: 20.0),
                     RaisedButton(
                         color: Colors.blue[700],
