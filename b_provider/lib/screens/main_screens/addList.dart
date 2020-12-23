@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 import 'package:b_provider/screens/main_screens/map.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AddList extends StatefulWidget {
   @override
@@ -18,15 +19,22 @@ class AddList extends StatefulWidget {
 class _AddListState extends State<AddList> {
   final _formKey =GlobalKey<FormState>();
 
-  String error = '';
-  String caption;
-  String imageUrl;
-  String clubId;
-  String postId;
-  String clubImage;
-  String clubName;
-  DateTime date;
-  bool loading = false;
+      String error = '';
+      String listId;
+          String categoryId;
+      String name;
+          String imageUrl;
+      String description;
+          double latitude;
+      double longitude;
+          String providerId;
+      String providerName;
+          int providerTel;
+      double unitPrice;
+          int units;
+      DateTime date;
+      bool loading = false;
+      LatLng location;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +95,7 @@ class _AddListState extends State<AddList> {
                       validator: (val) => val.isEmpty  ? 'enter Name' :null,
                       onChanged: (val){
                         setState(() {
-                          caption= val;
+                          name= val;
                         });
                       },
                     ),
@@ -98,7 +106,7 @@ class _AddListState extends State<AddList> {
                       validator: (val) => val.isEmpty  ? 'enter Description' :null,
                       onChanged: (val){
                         setState(() {
-                          caption= val;
+                          description= val;
                         });
                       },
                     ),
@@ -109,7 +117,7 @@ class _AddListState extends State<AddList> {
                       validator: (val) => val.isEmpty  ? 'enter Caption' :null,
                       onChanged: (val){
                         setState(() {
-                          caption= val;
+                          units= val as int;
                         });
                       },
                     ),
@@ -120,11 +128,22 @@ class _AddListState extends State<AddList> {
                       validator: (val) => val.isEmpty  ? 'enter Caption' :null,
                       onChanged: (val){
                         setState(() {
-                          caption= val;
+                          unitPrice= val as double;
                         });
                       },
                     ),
-                    SizedBox(height: 20.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Telephone',
+                      ),
+                      validator: (val) => val.isEmpty  ? 'enter telephone number' :null,
+                      onChanged: (val){
+                        setState(() {
+                          unitPrice= val as double;
+                        });
+                      },
+                    ),
+
 
                     SizedBox(height: 20.0),
                     RaisedButton(
@@ -140,6 +159,10 @@ class _AddListState extends State<AddList> {
                           uploadImage();
                         }
                     ),
+//                    Container(
+//                        child: locationButton(),
+//
+//                    ),
                     RaisedButton(
                         color: Colors.blue[700],
                         child: Text(
@@ -148,11 +171,21 @@ class _AddListState extends State<AddList> {
                               color: Colors.white
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.push(
+                        onPressed: () async {
+                          final LatLng location = await Navigator.push(
+
                             context,
+                            // Create the SelectionScreen in the next step.
                             MaterialPageRoute(builder: (context) => MyHomePage()),
+
+
                           );
+                          longitude= location.longitude;
+                          latitude= location.latitude;
+                          Scaffold.of(context)
+                            ..removeCurrentSnackBar()
+                            ..showSnackBar(SnackBar(content: Text("$latitude")));
+
                         }
                     ),
 
@@ -170,8 +203,16 @@ class _AddListState extends State<AddList> {
                           ),
                         ),
                         onPressed: () async{
-                          if(caption != null || imageUrl != null){
+                          if(name != null || imageUrl != null || unitPrice != null ){
                            // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
+                             DatabaseService().setListning(
+                                 Uuid().v1(),
+                               "wQUQRzDTubHd8KwI2wLg ",
+                               name,
+                               imageUrl,
+                               description,
+                               latitude,longitude,"providerId","providerName",098970908,90.0,10,DateTime.now()
+                             );
 
                             Navigator.push(context,
                               MaterialPageRoute(
@@ -179,7 +220,7 @@ class _AddListState extends State<AddList> {
                               ),);
                           }
                           else{
-                            error = "Add caption or image";
+                            error = "Add details";
                           }
 
 
@@ -199,8 +240,11 @@ class _AddListState extends State<AddList> {
         // child:
 
       ),
+
     );
+
   }
+
 
   uploadImage() async {
     final _storage = FirebaseStorage.instance;
@@ -242,3 +286,39 @@ class _AddListState extends State<AddList> {
 
 }
 
+//class locationButton extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return  RaisedButton(
+//        color: Colors.blue[700],
+//        child: Text(
+//          'Add Location',
+//          style: TextStyle(
+//              color: Colors.white
+//          ),
+//        ),
+//        onPressed: () {
+//          _navigateAndDisplaySelection(context);
+//        }
+//    );
+//  }
+//  _navigateAndDisplaySelection(BuildContext context) async {
+//    // Navigator.push returns a Future that completes after calling
+//    // Navigator.pop on the Selection Screen.
+//
+//    final LatLng location = await Navigator.push(
+//
+//      context,
+//      // Create the SelectionScreen in the next step.
+//      MaterialPageRoute(builder: (context) => MyHomePage()),
+//
+//
+//    );
+//    Scaffold.of(context)
+//      ..removeCurrentSnackBar()
+//      ..showSnackBar(SnackBar(content: Text("$location")));
+//  }
+//
+//
+//}
+//

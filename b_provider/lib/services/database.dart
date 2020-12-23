@@ -49,6 +49,41 @@ Stream<List<Brew>> get transports{
   return brewreference.snapshots().map(_brewFromSnapshots);
 
 }
+
+  Future<void> setListning(
+      String listId,
+      String categoryId,
+      String name,
+      String imageUrl,
+      String description,
+      double latitude,
+      double longitude,
+      String providerId,
+      String providerName,
+      int providerTel,
+      double unitPrice,
+      int units,
+      DateTime date
+      ){
+
+    return _db.collection('categories').doc('wQUQRzDTubHd8KwI2wLg').collection("subCategories").doc(listId).set({
+      "listId":listId,
+      "categoryId":categoryId,
+      "Name":name,
+      "imageUrl":imageUrl,
+      "description":description,
+      "latitude":latitude,
+      "longitude":longitude,
+      "providerId":providerId,
+      "providerName":providerName,
+      "providerTel":providerTel,
+      "unitPrice":unitPrice,
+      "units":units,
+      "date":date,
+    }
+
+    );
+  }
 List<Product> _productsfoemSnapshots(QuerySnapshot snapshot) {
   return snapshot.docs.map((doc){
     return Product(

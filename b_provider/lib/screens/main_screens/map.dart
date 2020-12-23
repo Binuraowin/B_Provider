@@ -202,7 +202,7 @@ myLocationButtonEnabled: false,
 floatingActionButton: FloatingActionButton(
 child: Icon(Icons.share),
 onPressed: () {
-shareLocationButton();
+  Navigator.pop(context, testloc);
 // this.model.onAddLocation(new TestLocation(testloc.latitude, testloc.longitude));
 }),
 );
