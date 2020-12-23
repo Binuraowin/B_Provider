@@ -80,9 +80,7 @@ Stream<List<Brew>> get transports{
       "unitPrice":unitPrice,
       "units":units,
       "date":date,
-    }
-
-    );
+    });
   }
 List<Product> _productsfoemSnapshots(QuerySnapshot snapshot) {
   return snapshot.docs.map((doc){
@@ -106,8 +104,6 @@ Stream<List<Product>> get products{
  String productName;
   return categoryreference.doc('foods').collection('Rice').snapshots().map(_productsfoemSnapshots);
 }
-
-
 
 
   Stream<List<CategoryModel>> getCategories() {

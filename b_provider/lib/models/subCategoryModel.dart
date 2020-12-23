@@ -1,53 +1,53 @@
 import 'package:flutter/material.dart';
 
 class SubCategoryModel{
-  final String listId;
-  final String subCategoryName;
-  final String imageUrl;
-  final String description;
-  final String providerId;
-  final int providerTel;
-  final String providerName;
-  final int unitPrice;
-  final int units;
-  final int latitude;
-  final int longitude;
-
+  String listId;
+      String categoryId;
+  String name;
+      String imageUrl;
+  String description;
+      double latitude;
+  double longitude;
+      String providerId;
+  String providerName;
+      int providerTel;
+  double unitPrice;
+      int units;
+  DateTime date;
 
 
   SubCategoryModel(
   {
     @required this.listId,
-    @required this.subCategoryName,
-    @required this.imageUrl,
-    @required  this.description,
-    @required this.providerId,
-    @required this.providerTel,
-    @required this.providerName,
-    @required this.unitPrice,
-    @required  this.units,
+    @required this.categoryId,
+    @required this.name,
+    @required  this.imageUrl,
+    @required this.description,
     @required this.latitude,
     @required this.longitude,
+    @required this.providerId,
+    @required  this.providerName,
+    @required this.providerTel,
+    @required this.unitPrice,
+    @required this.units,
+    @required this.date,
 
   } );
   factory SubCategoryModel.fromJson(Map<String, dynamic> json) {
     return SubCategoryModel(
       listId: json['listId'] ?? '',
-      subCategoryName: json['Name'] ?? '',
+      categoryId: json['categoryId'] ?? '',
+      name: json['Name'] ?? '',
       imageUrl: json['imageUrl'] ?? '',
       description: json['description'] ?? '',
-      providerId: json['providerId'] ?? '',
-      providerTel: json['providerTel'] ?? '',
-      providerName: json['providerName'] ?? '',
-      unitPrice: json['unitPrice'] ?? '',
-      units: json['units'] ?? '',
       latitude: json['latitude'] ?? '',
       longitude: json['longitude'] ?? '',
-
-
-
-
-
+      providerId: json['providerId'] ?? '',
+      providerName: json['providerName'] ?? '',
+      providerTel: json['providerTel'] ?? '',
+      unitPrice: json['unitPrice'] ?? '',
+      units: json['units'] ?? '',
+      date: json['date'] ?? '',
 
     );
 

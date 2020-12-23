@@ -117,7 +117,8 @@ class _AddListState extends State<AddList> {
                       validator: (val) => val.isEmpty  ? 'enter Caption' :null,
                       onChanged: (val){
                         setState(() {
-                          units= val as int;
+                          units = int.parse(val);
+
                         });
                       },
                     ),
@@ -128,7 +129,9 @@ class _AddListState extends State<AddList> {
                       validator: (val) => val.isEmpty  ? 'enter Caption' :null,
                       onChanged: (val){
                         setState(() {
-                          unitPrice= val as double;
+
+                          unitPrice = double.parse(val);
+
                         });
                       },
                     ),
@@ -139,7 +142,8 @@ class _AddListState extends State<AddList> {
                       validator: (val) => val.isEmpty  ? 'enter telephone number' :null,
                       onChanged: (val){
                         setState(() {
-                          unitPrice= val as double;
+                          providerTel= int.parse(val);
+
                         });
                       },
                     ),
@@ -207,11 +211,11 @@ class _AddListState extends State<AddList> {
                            // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
                              DatabaseService().setListning(
                                  Uuid().v1(),
-                               "wQUQRzDTubHd8KwI2wLg ",
+                               "wQUQRzDTubHd8KwI2wLg",
                                name,
                                imageUrl,
                                description,
-                               latitude,longitude,"providerId","providerName",098970908,90.0,10,DateTime.now()
+                               latitude,longitude,"providerId","providerName",providerTel,unitPrice,units,DateTime.now()
                              );
 
                             Navigator.push(context,

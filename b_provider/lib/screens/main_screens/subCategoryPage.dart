@@ -27,14 +27,14 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
             Expanded(
               flex: 1,
               child: StreamBuilder<List<SubCategoryModel>>(
-                stream: DatabaseService().getSubCategoriesById('9YyWBXoNNlXvh3BBLNuL'),
+                stream: DatabaseService().getSubCategoriesById('wQUQRzDTubHd8KwI2wLg'),
                 builder: (context, snapshot) {
                   return ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         return SubCategoryTile(
-                          imageUrl: snapshot.data[index].imageUrl,
-                          subCategoryName: snapshot.data[index].subCategoryName,
+                        imageUrl: snapshot.data[index].imageUrl,
+                          subCategoryName: snapshot.data[index].name,
                         );
                       }
                   );
