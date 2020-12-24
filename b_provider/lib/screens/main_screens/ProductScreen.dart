@@ -20,26 +20,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar:AppBar(
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios,
-                color: Colors.blue,
-              ),
-              onPressed: (){
-                Navigator.of(context).pop();
-              }),
-          brightness: Brightness.light,
-          backgroundColor: Colors.white,
-          title: Text(
-            'Events',
-            style: const TextStyle(
-              color:Colors.blue,
-              fontSize: 28.0,
-              fontWeight: FontWeight.bold,
-              letterSpacing: -1.2,
-            ),
-          ),
-        ) ,
+
 
         body: Column(
           children: [

@@ -41,6 +41,7 @@ class _AddListState extends State<AddList> {
     return  Scaffold(
       backgroundColor: Colors.blue[100],
       appBar:AppBar(
+        backgroundColor: Colors.blue[100],
         elevation: 0.0,
         leading: IconButton(
             icon: Icon(Icons.arrow_back_ios,
@@ -50,11 +51,10 @@ class _AddListState extends State<AddList> {
               Navigator.of(context).pop();
             }),
         brightness: Brightness.light,
-        backgroundColor: Colors.white,
         title: Text(
-          'Add Post',
+          'Listing',
           style: const TextStyle(
-            color:Palette.nsbmgreen,
+            color:Colors.grey,
             fontSize: 28.0,
             fontWeight: FontWeight.bold,
             letterSpacing: -1.2,
