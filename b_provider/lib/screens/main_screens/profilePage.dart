@@ -41,7 +41,7 @@ class ProfilePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Icon(
-                        Icons.arrow_back_ios,
+                        Icons.description,
                         color: Colors.white,
                       ),
                       Icon(
