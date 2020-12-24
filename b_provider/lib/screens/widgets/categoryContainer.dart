@@ -1,17 +1,20 @@
 
 
+import 'package:b_provider/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class categoryContainer extends StatelessWidget {
 
   final String caption;
   final String imageUrl;
-  final String clubImage;
   final String clubName;
   final DateTime date;
+  final String postId;
+  final String categoryId;
 
-  const categoryContainer({Key key, this.caption, this.imageUrl, this.clubImage, this.clubName, this.date}) : super(key: key);
+  const categoryContainer({Key key, this.caption, this.imageUrl, this.clubName, this.date, this.postId, this.categoryId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,7 +45,7 @@ class categoryContainer extends StatelessWidget {
 
                 : const SizedBox.shrink(),
             Padding(padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: _postStats(clubName: clubName,),
+              child: _postStats(clubName: clubName,postId: postId,categoryId: categoryId,),
             )
           ],
         )
@@ -56,8 +59,10 @@ class categoryContainer extends StatelessWidget {
 
 class _postStats extends StatelessWidget {
   final String clubName;
+  final String postId;
+  final String categoryId;
 
-  const _postStats({Key key, this.clubName}) : super(key: key);
+  const _postStats({Key key, this.clubName, this.postId, this.categoryId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -89,12 +94,21 @@ class _postStats extends StatelessWidget {
               height: 25,
               padding: const EdgeInsets.all(4.0),
               child: RaisedButton(
-                color: Colors.blue[400],
-                onPressed: () {
-                  print("Register");
-                },
-                child: const Text('Register Event',
-                    style: TextStyle(fontSize: 11 , color: Colors.white)),
+
+
+                  color: Colors.white,
+                  elevation: 0,
+                  onPressed: () {
+                    DatabaseService().deleteList(postId,categoryId);
+                  },
+                  child:Align(
+                    alignment: Alignment.center,
+                    child:const Icon(MdiIcons.delete, size: 18,color: Colors.red,),
+                  )
+
+
+//                child: const Text('Edit',
+//                 style: TextStyle(fontSize: 11 , color: Colors.white)),
               ),
             ),
 

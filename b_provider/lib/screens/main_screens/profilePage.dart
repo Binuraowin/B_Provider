@@ -30,7 +30,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
         Scaffold(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.blue[400],
           body: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Padding(

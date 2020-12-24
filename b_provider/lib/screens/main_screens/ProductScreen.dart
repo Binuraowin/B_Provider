@@ -36,7 +36,10 @@ class _ProductPageState extends State<ProductPage> {
                         return categoryContainer(
                           caption: snapshot.data[index].name,
                           imageUrl: snapshot.data[index].imageUrl,
+                          clubName: snapshot.data[index].name,
                           date:snapshot.data[index].date,
+                          postId: snapshot.data[index].listId,
+                          categoryId: snapshot.data[index].categoryId,
 
                         );
                       }

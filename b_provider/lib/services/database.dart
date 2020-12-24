@@ -118,6 +118,9 @@ Stream<List<Product>> get products{
     return _db.collection('categories').doc('wQUQRzDTubHd8KwI2wLg').collection('subCategories').where('providerId', isEqualTo: 'wdsd').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => SubCategoryModel.fromJson(doc.data())).toList());
   }
+  Future<void> deleteList(String postId,String docId){
+    return _db.collection('categories').doc(docId).collection('subCategories').doc(postId).delete();
+  }
 //Stream<List<CategoryModel>> get category{
 //  return categoryreference.snapshots().map(_categoryfoemSnapshots);
 //}
