@@ -13,7 +13,7 @@ class SubCategoryModel{
       int providerTel;
   double unitPrice;
       int units;
-  DateTime date;
+ DateTime date;
 
 
   SubCategoryModel(
@@ -30,7 +30,7 @@ class SubCategoryModel{
     @required this.providerTel,
     @required this.unitPrice,
     @required this.units,
-    @required this.date,
+   @required this.date,
 
   } );
   factory SubCategoryModel.fromJson(Map<String, dynamic> json) {
@@ -47,7 +47,7 @@ class SubCategoryModel{
       providerTel: json['providerTel'] ?? '',
       unitPrice: json['unitPrice'] ?? '',
       units: json['units'] ?? '',
-      date: json['date'] ?? '',
+      date: json['date'].toDate() ?? '',
 
     );
 

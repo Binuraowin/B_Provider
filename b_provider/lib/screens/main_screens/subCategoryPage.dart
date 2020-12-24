@@ -16,7 +16,7 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
 //  final String id;
 //
 //  _SubCategoryPageState(this.id);
-
+String id;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +27,10 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
             Expanded(
               flex: 1,
               child: StreamBuilder<List<SubCategoryModel>>(
-                stream: DatabaseService().getSubCategoriesById('wQUQRzDTubHd8KwI2wLg'),
+                stream: DatabaseService().getSubCategoriesById(id),
                 builder: (context, snapshot) {
                   return ListView.builder(
-                      itemCount: snapshot.data.length,
+                      itemCount: snapshot.data==null?0:snapshot.data.length,
                       itemBuilder: (context, index) {
                         return SubCategoryTile(
                         imageUrl: snapshot.data[index].imageUrl,

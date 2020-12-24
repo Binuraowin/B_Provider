@@ -1,4 +1,5 @@
 import 'package:b_provider/main.dart';
+import 'package:b_provider/screens/main_screens/ProductScreen.dart';
 import 'package:b_provider/screens/main_screens/map.dart';
 import 'package:b_provider/screens/main_screens/mapsnext.dart';
 import 'package:b_provider/screens/main_screens/addList.dart';
@@ -17,7 +18,7 @@ class NavScreen extends StatefulWidget {
 
 class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
-    SubCategoryPage(),
+    ProductPage(),
     AddList(),
     Scaffold(),
 
