@@ -6,10 +6,12 @@ import 'package:b_provider/services/database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 import 'package:b_provider/screens/main_screens/map.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:b_provider/models/categoryModel.dart';
 
 class AddList extends StatefulWidget {
   @override
@@ -147,7 +149,51 @@ class _AddListState extends State<AddList> {
                         });
                       },
                     ),
+                StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance.collection('categories').snapshots(),
+                    builder: (context, snapshot) {
+                  if (!snapshot.hasData)
+                    return Center(
+//                      child: CupertinoActivityIndicator(),
+                    );
 
+                  return Container(
+                    padding: EdgeInsets.only(bottom: 16.0),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                            flex: 2,
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(12.0, 10.0, 10.0, 10.0),
+                              child: Text(
+                                "Category",
+                              ),
+                            )),
+                        new Expanded(
+                          flex: 4,
+                          child: DropdownButton(
+                            value: categoryId,
+                            isDense: true,
+                            onChanged: (valueSelectedByUser) {
+                              this.categoryId = valueSelectedByUser;
+                              print(categoryId);
+//                              _onShopDropItemSelected(valueSelectedByUser);
+                            },
+                            hint: Text('Choose shop'),
+                            items: snapshot.data.docs
+                                .map((DocumentSnapshot document) {
+                              return DropdownMenuItem<String>(
+                                value: document.data()['Id'],
+
+                                child: Text(document.data()['Name'] ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
 
                     SizedBox(height: 20.0),
                     RaisedButton(
