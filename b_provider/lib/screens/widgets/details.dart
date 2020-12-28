@@ -24,7 +24,7 @@ class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<Product>>.value(
-      value:DatabaseService().products,
+//      value:DatabaseService().products,
           child: Scaffold(
         backgroundColor: Color(0xFF7A9BEE),
         appBar: AppBar(

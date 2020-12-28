@@ -66,7 +66,7 @@ Stream<List<Brew>> get transports{
       DateTime date
       ){
 
-    return _db.collection('categories').doc('wQUQRzDTubHd8KwI2wLg').collection("subCategories").doc(listId).set({
+    return _db.collection('categories').doc('$categoryId').collection("subCategories").doc(listId).set({
       "listId":listId,
       "categoryId":categoryId,
       "Name":name,
@@ -99,11 +99,11 @@ List<Product> _productsfoemSnapshots(QuerySnapshot snapshot) {
 
 }
 
-Stream<List<Product>> get products{
- String categoryName;
- String productName;
-  return categoryreference.doc('foods').collection('Rice').snapshots().map(_productsfoemSnapshots);
-}
+//Stream<List<Product>> get products{
+// String categoryName;
+// String productName;
+//  return categoryreference.doc('foods').collection('Rice').snapshots().map(_productsfoemSnapshots);
+//}
 
 
   Stream<List<CategoryModel>> getCategories() {
@@ -114,8 +114,8 @@ Stream<List<Product>> get products{
     return _db.collection('categories').doc('$docId').collection('subCategories').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => SubCategoryModel.fromJson(doc.data())).toList());
   }
-  Stream<List<SubCategoryModel>> getSubCategoriesById(providerId) {
-    return _db.collection('categories').doc('wQUQRzDTubHd8KwI2wLg').collection('subCategories').where('providerId', isEqualTo: 'wdsd').snapshots().map((snapshot) =>
+  Stream<List<SubCategoryModel>> getSubCategoriesById(providerId,docId) {
+    return _db.collection('categories').doc(docId).collection('subCategories').where('providerId', isEqualTo: '$providerId').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => SubCategoryModel.fromJson(doc.data())).toList());
   }
   Future<void> deleteList(String postId,String docId){

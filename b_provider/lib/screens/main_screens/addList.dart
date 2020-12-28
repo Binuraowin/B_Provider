@@ -179,7 +179,7 @@ class _AddListState extends State<AddList> {
                               print(categoryId);
 //                              _onShopDropItemSelected(valueSelectedByUser);
                             },
-                            hint: Text('Choose shop'),
+                            hint: Text('Choose Category'),
                             items: snapshot.data.docs
                                 .map((DocumentSnapshot document) {
                               return DropdownMenuItem<String>(
@@ -253,16 +253,19 @@ class _AddListState extends State<AddList> {
                           ),
                         ),
                         onPressed: () async{
-                          if(name != null || imageUrl != null || unitPrice != null ){
+                          if(name != null || imageUrl != null || unitPrice != null || units != null || categoryId != null ){
                            // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
                              DatabaseService().setListning(
                                  Uuid().v1(),
-                               "wQUQRzDTubHd8KwI2wLg",
+                               categoryId,
                                name,
                                imageUrl,
                                description,
                                latitude,longitude,"providerId","providerName",providerTel,unitPrice,units,DateTime.now()
                              );
+                             Scaffold.of(context)
+                               ..removeCurrentSnackBar()
+                               ..showSnackBar(SnackBar(content: Text('Added Listning')));
 
                             Navigator.push(context,
                               MaterialPageRoute(

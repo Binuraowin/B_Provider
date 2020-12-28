@@ -27,7 +27,7 @@ String id;
             Expanded(
               flex: 1,
               child: StreamBuilder<List<SubCategoryModel>>(
-                stream: DatabaseService().getSubCategoriesById(id),
+//                stream: DatabaseService().getSubCategoriesById(id),
                 builder: (context, snapshot) {
                   return ListView.builder(
                       itemCount: snapshot.data==null?0:snapshot.data.length,

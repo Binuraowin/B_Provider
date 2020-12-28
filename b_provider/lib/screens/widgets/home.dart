@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<Product>>.value(
-      value:DatabaseService().products,
+//      value:DatabaseService().products,
           child: Scaffold(
      backgroundColor: Colors.blue[100],
       body:ListView(
