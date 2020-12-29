@@ -54,10 +54,20 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               SizedBox(height: 140.0),
               TextFormField(
+                keyboardType: TextInputType.emailAddress ,
                  decoration: InputDecoration(
                   hintText: 'Email',
                 ),
-                 validator: (val) => val.isEmpty  ? 'enter an email' :null,
+                validator: (String value){
+                  if(value.isEmpty)
+                  {
+                    return 'Please a Enter';
+                  }
+                  if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)){
+                    return 'Please a valid Email';
+                  }
+                  return null;
+                },
                 onChanged: (val){
                     setState(() {
                       email= val;
@@ -78,6 +88,24 @@ class _RegisterState extends State<Register> {
                 },
               ),
                SizedBox(height: 20.0),
+              TextFormField(
+                keyboardType: TextInputType.emailAddress ,
+                decoration: InputDecoration(
+                  hintText: 'Shop Name',
+                ),
+                validator: (String value){
+                  if(value.isEmpty)
+                  {
+                    return 'Please a Enter';
+                  }
+                  return null;
+                },
+                onChanged: (val){
+                  setState(() {
+                    email= val;
+                  });
+                },
+              ),
                RaisedButton(
                  color: Colors.blue[700],
                  child: Text(

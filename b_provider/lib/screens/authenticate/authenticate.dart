@@ -1,4 +1,5 @@
 import 'package:b_provider/screens/authenticate/register.dart';
+import 'package:b_provider/screens/authenticate/register2.dart';
 import 'package:b_provider/screens/authenticate/sign_in.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class _AuthenticateState extends State<Authenticate> {
      return SignIn(toggleView: toggleView);
    }
    else{
-     return Register(toggleView: toggleView);
+     return FormPage(toggleView: toggleView);
    }
   }
  }

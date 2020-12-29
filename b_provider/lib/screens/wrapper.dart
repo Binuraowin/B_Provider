@@ -2,6 +2,7 @@
 import 'package:b_provider/models/authUser.dart';
 import 'package:b_provider/screens/authenticate/authenticate.dart';
 import 'package:b_provider/screens/main_screens/category_mainPage.dart';
+import 'package:b_provider/screens/main_screens/nav_screens.dart';
 import 'package:b_provider/screens/widgets//category.dart';
 import 'package:b_provider/screens/widgets//home.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _WrapperState extends State<Wrapper> {
    if(authuser == null){
      return Authenticate();
    }else{
-     return CategoryMainPage();
+     return  NavScreen();
    }
 
   }

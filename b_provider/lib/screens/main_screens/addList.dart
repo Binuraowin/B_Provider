@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:b_provider/cofig/palette.dart';
 import 'package:b_provider/screens/main_screens/nav_screens.dart';
+import 'package:b_provider/services/auth.dart';
 import 'package:b_provider/services/database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class AddList extends StatefulWidget {
 }
 
 class _AddListState extends State<AddList> {
+  final AuthService _auth = AuthService();
   final _formKey =GlobalKey<FormState>();
 
       String error = '';
@@ -65,10 +67,10 @@ class _AddListState extends State<AddList> {
         actions: [
           FlatButton.icon(
               onPressed: () async{
-//                await DatabaseService().signInAnon();
+                await _auth.signOut();
               },
               icon: Icon(Icons.person , color: Colors.white,),
-              label: Text('Register',
+              label: Text('logout',
                 style: TextStyle(color: Colors.white),
               )
           )
