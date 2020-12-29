@@ -1,3 +1,4 @@
+import 'package:b_provider/screens/authenticate/inputdeco.dart';
 import 'package:b_provider/services/auth.dart';
 import 'package:b_provider/shared/loading.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _SignInState extends State<SignIn> {
   String email = '';
   String password = '';
    String error = '';
+
   @override
   Widget build(BuildContext context) {
     return loading ? Loading(): Scaffold(
@@ -54,31 +56,75 @@ class _SignInState extends State<SignIn> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 140.0),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'Email',
-                ),
-                 validator: (val) => val.isEmpty  ? 'enter an email' :null,
-                onChanged: (val){
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
+                child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration:buildInputDecoration(Icons.email,"Email"),
+                  validator: (String value){
+                    if(value.isEmpty)
+                    {
+                      return 'Please a Enter';
+                    }
+                    if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)){
+                      return 'Please a valid Email';
+                    }
+                    return null;
+                  },
+                  onChanged: (val){
                     setState(() {
                       email= val;
                     });
-                },
-              ),
-                SizedBox(height: 20.0),
-              TextFormField(
-                obscureText: true,
-                 decoration: InputDecoration(
-                  hintText: 'password',
+                  },
                 ),
-                validator: (val) => val.length <6 ? 'enter 6+ cratecctors password' :null,
-                onChanged: (val){
+              ),
+//              TextFormField(
+//                decoration: InputDecoration(
+//                  hintText: 'Email',
+//                ),
+//                 validator: (val) => val.isEmpty  ? 'enter an email' :null,
+//                onChanged: (val){
+//                    setState(() {
+//                      email= val;
+//                    });
+//                },
+//              ),
+                SizedBox(height: 20.0),
+//              TextFormField(
+//                obscureText: true,
+//                 decoration: InputDecoration(
+//                  hintText: 'password',
+//                ),
+//                validator: (val) => val.length <6 ? 'enter 6+ cratecctors password' :null,
+//                onChanged: (val){
+//                    setState(() {
+//                      password= val;
+//                    });
+//                },
+//              ),
+               SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
+                child: TextFormField(
+//                  controller: password,
+                  obscureText: true,
+                  keyboardType: TextInputType.text,
+                  decoration:buildInputDecoration(Icons.lock,"Password"),
+                  validator: (String value){
+                    if(value.isEmpty)
+                    {
+                      return 'Please a Enter Password';
+                    }
+                    return null;
+                  },
+                  onChanged: (val){
                     setState(() {
                       password= val;
                     });
-                },
+                  },
+
+                ),
               ),
-               SizedBox(height: 20.0),
                RaisedButton(
                  color: Colors.blue[700],
                  child: Text(
@@ -89,9 +135,9 @@ class _SignInState extends State<SignIn> {
                  ),
                  onPressed: () async{
                      if (_formKey.currentState.validate()) {
-                       setState(() {
-                         loading= true;
-                       });
+//                       setState(() {
+//                         loading= true;
+//                       });
                         dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                         if(result == null){
                           setState(() {
