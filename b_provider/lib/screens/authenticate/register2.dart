@@ -88,7 +88,7 @@ class _FormPageState extends State<FormPage> {
                     keyboardType: TextInputType.number,
                     decoration:buildInputDecoration(Icons.phone,"Phone No"),
                     validator: (String value){
-                      if(value.isEmpty && value.length<10)
+                      if(value.isEmpty || value.length<10)
                       {
                         return 'Please enter phone no ';
                       }
@@ -108,6 +108,7 @@ class _FormPageState extends State<FormPage> {
                   padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
                   child: TextFormField(
                     controller: password,
+                    obscureText: true,
                     keyboardType: TextInputType.text,
                     decoration:buildInputDecoration(Icons.lock,"Password"),
                     validator: (String value){
