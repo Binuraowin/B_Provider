@@ -95,6 +95,7 @@ class _FormPageState extends State<FormPage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
                   child: TextFormField(
+
                     keyboardType: TextInputType.number,
                     decoration:buildInputDecoration(Icons.phone,"Phone No"),
                     validator: (String value){

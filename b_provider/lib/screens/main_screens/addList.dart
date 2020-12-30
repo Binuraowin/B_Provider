@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:b_provider/cofig/palette.dart';
+import 'package:b_provider/screens/authenticate/inputdeco.dart';
 import 'package:b_provider/screens/main_screens/nav_screens.dart';
 import 'package:b_provider/services/auth.dart';
 import 'package:b_provider/services/database.dart';
@@ -47,13 +48,13 @@ class _AddListState extends State<AddList> {
       appBar:AppBar(
         backgroundColor: Colors.blue[100],
         elevation: 0.0,
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios,
-              color: Palette.facebookBlue,
-            ),
-            onPressed: (){
-              Navigator.of(context).pop();
-            }),
+//        leading: IconButton(
+//            icon: Icon(Icons.arrow_back_ios,
+//              color: Palette.facebookBlue,
+//            ),
+//            onPressed: (){
+//              Navigator.of(context).pop();
+//            }),
         brightness: Brightness.light,
         title: Text(
           'Listing',
@@ -92,65 +93,165 @@ class _AddListState extends State<AddList> {
                 child: Column(
                   children: <Widget>[
                     SizedBox(height: 100.0),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Name',
+                    Padding(
+                      padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
+                      child: TextFormField(
+                        keyboardType: TextInputType.text,
+                        decoration: buildInputDecoration(Icons.shop,"Product Name"),
+                        validator: (String value){
+                          if(value.isEmpty)
+                          {
+                            return 'Please Enter Name';
+                          }
+                          return null;
+                        },
+                        onChanged: (val){
+                          setState(() {
+                            name= val;
+                          });
+                        },
                       ),
-                      validator: (val) => val.isEmpty  ? 'enter Name' :null,
-                      onChanged: (val){
-                        setState(() {
-                          name= val;
-                        });
-                      },
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Description',
+//                    TextFormField(
+//                      decoration: InputDecoration(
+//                        hintText: 'Name',
+//                      ),
+//                      validator: (val) => val.isEmpty  ? 'enter Name' :null,
+//                      onChanged: (val){
+//                        setState(() {
+//                          name= val;
+//                        });
+//                      },
+//                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
+                      child: TextFormField(
+                        keyboardType: TextInputType.text,
+                        maxLength: 1000,
+                        decoration: buildInputDecoration(Icons.description,"Description"),
+                        validator: (String value){
+                          if(value.isEmpty)
+                          {
+                            return 'enter Description';
+                          }
+                          return null;
+                        },
+                        onChanged: (val){
+                          setState(() {
+                            description= val;
+                          });
+                        },
                       ),
-                      validator: (val) => val.isEmpty  ? 'enter Description' :null,
-                      onChanged: (val){
-                        setState(() {
-                          description= val;
-                        });
-                      },
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Units',
-                      ),
-                      validator: (val) => val.isEmpty  ? 'enter Caption' :null,
-                      onChanged: (val){
-                        setState(() {
-                          units = int.parse(val);
+//                    TextFormField(
+//                      decoration: InputDecoration(
+//                        hintText: 'Description',
+//                      ),
+//                      validator: (val) => val.isEmpty  ? 'enter Description' :null,
+//                      onChanged: (val){
+//                        setState(() {
+//                          description= val;
+//                        });
+//                      },
+//                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: buildInputDecoration(Icons.ad_units,"Units"),
+                        validator: (String value){
+                          if(value.isEmpty)
+                          {
+                            return 'enter Unit number';
+                          }
+                          return null;
+                        },
+                        onChanged: (val){
+                          setState(() {
+                            units = int.parse(val);
 
-                        });
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Unit Price',
+                          });
+                        },
                       ),
-                      validator: (val) => val.isEmpty  ? 'enter Caption' :null,
-                      onChanged: (val){
-                        setState(() {
-
-                          unitPrice = double.parse(val);
-
-                        });
-                      },
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Telephone',
+//                    TextFormField(
+//                      decoration: InputDecoration(
+//                        hintText: 'Units',
+//                      ),
+//                      validator: (val) => val.isEmpty  ? 'enter Caption' :null,
+//                      onChanged: (val){
+//                        setState(() {
+//                          units = int.parse(val);
+//
+//                        });
+//                      },
+//                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: buildInputDecoration(Icons.monetization_on_rounded,"Unit Price"),
+                        validator: (String value){
+                          if(value.isEmpty)
+                          {
+                            return 'enter Unit Price';
+                          }
+                          return null;
+                        },
+                        onChanged: (val){
+                          setState(() {
+
+                            unitPrice = double.parse(val);
+
+                          });
+                        },
                       ),
-                      validator: (val) => val.isEmpty  ? 'enter telephone number' :null,
-                      onChanged: (val){
-                        setState(() {
-                          providerTel= int.parse(val);
-
-                        });
-                      },
                     ),
+//                    TextFormField(
+//                      decoration: InputDecoration(
+//                        hintText: 'Unit Price',
+//                      ),
+//                      validator: (val) => val.isEmpty  ? 'enter Caption' :null,
+//                      onChanged: (val){
+//                        setState(() {
+//
+//                          unitPrice = double.parse(val);
+//
+//                        });
+//                      },
+//                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: buildInputDecoration(Icons.phone,"Telephone"),
+                        validator: (String value){
+                          if(value.isEmpty || value.length<10 || value.length>10 )
+                          {
+                            return 'Enter telephone number';
+                          }
+                          return null;
+                        },
+                        onChanged: (val){
+                          setState(() {
+                            providerTel= int.parse(val);
+
+                          });
+                        },
+                      ),
+                    ),
+//                    TextFormField(
+//                      decoration: InputDecoration(
+//                        hintText: 'Telephone',
+//                      ),
+//                      validator: (val) => val.isEmpty  ? 'enter telephone number' :null,
+//                      onChanged: (val){
+//                        setState(() {
+//                          providerTel= int.parse(val);
+//
+//                        });
+//                      },
+//                    ),
                 StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance.collection('categories').snapshots(),
                     builder: (context, snapshot) {
@@ -198,89 +299,184 @@ class _AddListState extends State<AddList> {
                 }),
 
                     SizedBox(height: 20.0),
-                    RaisedButton(
-                        color: Colors.blue[700],
-                        child: Text(
-                          'Add Image',
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
+                    SizedBox(
+                      width: 200,
+                      height: 50,
+                      child: RaisedButton(
+                        color: Colors.blue[100],
                         onPressed: () async{
 
                           uploadImage();
-                        }
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0),
+                            side: BorderSide(color: Colors.blue,width: 2)
+                        ),
+                        textColor:Colors.white,child: Text("Add image"),
+
+                      ),
                     ),
+//                    RaisedButton(
+//                        color: Colors.blue[700],
+//                        child: Text(
+//                          'Add Image',
+//                          style: TextStyle(
+//                              color: Colors.white
+//                          ),
+//                        ),
+//
+//                    ),
 //                    Container(
 //                        child: locationButton(),
 //
 //                    ),
-                    RaisedButton(
-                        color: Colors.blue[700],
-                        child: Text(
-                          'Add Location',
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
+                    SizedBox(height: 20.0),
+                    SizedBox(
+                      width: 200,
+                      height: 50,
+                      child: RaisedButton(
+                        color: Colors.blue[100],
+                          onPressed: () async {
+                            final LatLng location = await Navigator.push(
+
+                              context,
+                              // Create the SelectionScreen in the next step.
+                              MaterialPageRoute(builder: (context) => MyHomePage()),
+
+
+                            );
+                            longitude= location.longitude;
+                            latitude= location.latitude;
+                            Scaffold.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(SnackBar(content: Text("$latitude")));
+
+                          },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0),
+                            side: BorderSide(color: Colors.blue,width: 2)
                         ),
-                        onPressed: () async {
-                          final LatLng location = await Navigator.push(
+                        textColor:Colors.white,child: Text("Add location"),
 
-                            context,
-                            // Create the SelectionScreen in the next step.
-                            MaterialPageRoute(builder: (context) => MyHomePage()),
-
-
-                          );
-                          longitude= location.longitude;
-                          latitude= location.latitude;
-                          Scaffold.of(context)
-                            ..removeCurrentSnackBar()
-                            ..showSnackBar(SnackBar(content: Text("$latitude")));
-
-                        }
+                      ),
                     ),
+//                    RaisedButton(
+//                        color: Colors.blue[700],
+//                        child: Text(
+//                          'Add Location',
+//                          style: TextStyle(
+//                              color: Colors.white
+//                          ),
+//                        ),
+//                        onPressed: () async {
+//                          final LatLng location = await Navigator.push(
+//
+//                            context,
+//                            // Create the SelectionScreen in the next step.
+//                            MaterialPageRoute(builder: (context) => MyHomePage()),
+//
+//
+//                          );
+//                          longitude= location.longitude;
+//                          latitude= location.latitude;
+//                          Scaffold.of(context)
+//                            ..removeCurrentSnackBar()
+//                            ..showSnackBar(SnackBar(content: Text("$latitude")));
+//
+//                        }
+//                    ),
 
                     SizedBox(height: 20.0),
                     (imageUrl != null)
                         ? Image.network(imageUrl)
                         : Placeholder(fallbackHeight: 150.0,fallbackWidth: double.infinity, color: Colors.transparent,),
                     SizedBox(height: 20.0),
-                    RaisedButton(
-                        color: Colors.blue[700],
-                        child: Text(
-                          'Submit',
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
+
+                    SizedBox(
+                      width: 200,
+                      height: 50,
+                      child: RaisedButton(
+                        color: Colors.redAccent,
                         onPressed: () async{
-                          if(name != null || imageUrl != null || unitPrice != null || units != null || categoryId != null ){
-                           // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
-                             DatabaseService().setListning(
-                                 Uuid().v1(),
-                               categoryId,
-                               name,
-                               imageUrl,
-                               description,
-                               latitude,longitude,"providerId","providerName",providerTel,unitPrice,units,DateTime.now()
-                             );
-                             Scaffold.of(context)
-                               ..removeCurrentSnackBar()
-                               ..showSnackBar(SnackBar(content: Text('Added Listning')));
 
-                            Navigator.push(context,
-                              MaterialPageRoute(
-                                  builder:(context) => NavScreen()
-                              ),);
+                          if(_formKey.currentState.validate())
+                          {
+                            if(name != null || imageUrl != null || unitPrice != null || units != null || categoryId != null ){
+                              // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
+                              DatabaseService().setListning(
+                                  Uuid().v1(),
+                                  categoryId,
+                                  name,
+                                  imageUrl,
+                                  description,
+                                  latitude,longitude,"providerId","providerName",providerTel,unitPrice,units,DateTime.now()
+                              );
+                              Scaffold.of(context)
+                                ..removeCurrentSnackBar()
+                                ..showSnackBar(SnackBar(content: Text('Added Listning')));
+
+                              Navigator.push(context,
+                                MaterialPageRoute(
+                                    builder:(context) => NavScreen()
+                                ),);
+                            }else{
+                              error = "Add details";
+                            }
+                            print("successful");
+
+                            return;
+                          }else{
+                            print("UnSuccessfull");
                           }
-                          else{
-                            error = "Add details";
-                          }
 
 
-                        }
+
+
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0),
+                            side: BorderSide(color: Colors.blue,width: 2)
+                        ),
+                        textColor:Colors.white,child: Text("Submit"),
+
+                      ),
                     ),
+
+//                    RaisedButton(
+//                        color: Colors.blue[700],
+//                        child: Text(
+//                          'Submit',
+//                          style: TextStyle(
+//                              color: Colors.white
+//                          ),
+//                        ),
+//                        onPressed: () async{
+//                          if(name != null || imageUrl != null || unitPrice != null || units != null || categoryId != null ){
+//                           // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
+//                             DatabaseService().setListning(
+//                                 Uuid().v1(),
+//                               categoryId,
+//                               name,
+//                               imageUrl,
+//                               description,
+//                               latitude,longitude,"providerId","providerName",providerTel,unitPrice,units,DateTime.now()
+//                             );
+//                             Scaffold.of(context)
+//                               ..removeCurrentSnackBar()
+//                               ..showSnackBar(SnackBar(content: Text('Added Listning')));
+//
+//                            Navigator.push(context,
+//                              MaterialPageRoute(
+//                                  builder:(context) => NavScreen()
+//                              ),);
+//                          }
+//                          else{
+//                            error = "Add details";
+//                          }
+//
+//
+//                        }
+//                    ),
                     SizedBox(height: 12.0),
                     Text(
                       error,
