@@ -24,12 +24,12 @@ Stream<AuthUser> get user{
       return null;
     }
   }
-  Future registerWithEmailAndPassword(String email, String password) async{
+  Future registerWithEmailAndPassword(String email, String password,String shopName,int phoneNumber,String imageUrl) async{
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user;
       User user2 = FirebaseAuth.instance.currentUser;
-      await DatabaseService().updateData(user2.displayName, '0', 100,user2.uid);
+      await DatabaseService().updateData(user.displayName,user.uid, shopName,phoneNumber,5, imageUrl,);
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

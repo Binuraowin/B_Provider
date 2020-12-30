@@ -19,7 +19,8 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
   final AuthService _auth = AuthService();
-  String name,email,phone,pass;
+  String name,email,pass;
+  int phone;
   bool loading = false;
   String error = '';
   String imageUrl;
@@ -80,6 +81,11 @@ class _FormPageState extends State<FormPage> {
                       onSaved: (String value){
                         name = value;
                       },
+                      onChanged: (val){
+                        setState(() {
+                          name= val;
+                        });
+                      },
                     ),
                   ),
                   Padding(
@@ -120,12 +126,12 @@ class _FormPageState extends State<FormPage> {
                         }
                         return null;
                       },
-                      onSaved: (String value){
-                        phone = value;
-                      },
+//                      onSaved: (String value){
+//                        phone = value;
+//                      },
                       onChanged: (val){
                         setState(() {
-                          phone= val;
+                          phone= int.parse(val);
                         });
                       },
                     ),
@@ -226,7 +232,7 @@ class _FormPageState extends State<FormPage> {
                         if(_formkey.currentState.validate())
                         {
                           print("successful");
-                          dynamic result = await _auth.registerWithEmailAndPassword(email, pass);
+                          dynamic result = await _auth.registerWithEmailAndPassword(email, pass,name,phone,imageUrl);
                           if(result == null){
                             setState(() {
                               error='enter valid email';

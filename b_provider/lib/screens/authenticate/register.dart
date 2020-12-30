@@ -115,18 +115,18 @@ class _RegisterState extends State<Register> {
                    ),
                  ),
                  onPressed: () async{
-                   if (_formKey.currentState.validate()) {
-                       setState(() {
-                         loading= true;
-                       });
-                        dynamic result = await _auth.registerWithEmailAndPassword(email, password);
-                        if(result == null){
-                          setState(() {
-                            error='enter valid email';
-                            loading= true;
-                          });
-                        }
-                   }
+//                   if (_formKey.currentState.validate()) {
+//                       setState(() {
+//                         loading= true;
+//                       });
+//                        dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+//                        if(result == null){
+//                          setState(() {
+//                            error='enter valid email';
+//                            loading= true;
+//                          });
+//                        }
+//                   }
                
                  }
                  ),

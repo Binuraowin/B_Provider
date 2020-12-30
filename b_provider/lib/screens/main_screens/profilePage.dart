@@ -6,16 +6,17 @@ class ProfilePage extends StatelessWidget {
   final String imageurl;
   final String shopName;
   final int phNumber;
-  final int lists;
   final int coins;
 
-   ProfilePage({Key key, this.imageurl, this.shopName, this.phNumber, this.lists, this.coins}) : super(key: key);
+
+   ProfilePage({Key key, this.imageurl, this.shopName, this.phNumber,this.coins}) : super(key: key);
   final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    int canbelist = 5-coins;
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -130,7 +131,7 @@ class ProfilePage extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              lists.toString(),
+                                              canbelist.toString(),
                                               style: TextStyle(
                                                 color: Color.fromRGBO(
                                                     39, 105, 171, 1),

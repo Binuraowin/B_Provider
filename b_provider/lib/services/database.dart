@@ -1,3 +1,4 @@
+import 'package:b_provider/models/newUser.dart';
 import 'package:b_provider/models/subCategoryModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +10,7 @@ import 'package:b_provider/models/product.dart';
 class DatabaseService {
   FirebaseFirestore _db = FirebaseFirestore.instance;
 //   DatabaseService(this.uid);
-  final CollectionReference brewreference = Firestore.instance.collection('brews');
+  final CollectionReference brewreference = Firestore.instance.collection('users');
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
    final CollectionReference categoryreference  = Firestore.instance.collection('categories');
   //  final CollectionReference productreference  = Firestore.instance.collection('categories').doc(categoryName);
@@ -17,15 +18,19 @@ class DatabaseService {
 
     Future<void> updateData(
   final String name,
-  final String sugars,
-  final int strength,
- final  String uid,
-
+  final String uid,
+  final String shopName,
+  final int phoneNumner,
+  final int coins,
+  final String imageurl,
     ) async {
     return await brewreference.doc(uid).set({
      'name':name,
-     'strength':strength,
-     'sugars':sugars,
+     'uid':uid,
+     'shopName':shopName,
+      'phoneNumner':phoneNumner,
+      'coins':coins,
+      'imageurl':imageurl,
 
     });
 
@@ -120,6 +125,11 @@ List<Product> _productsfoemSnapshots(QuerySnapshot snapshot) {
   }
   Future<void> deleteList(String postId,String docId){
     return _db.collection('categories').doc(docId).collection('subCategories').doc(postId).delete();
+  }
+
+  Stream<List<regUser>> getUser(String uid) {
+    return _db.collection('users').where('uid', isEqualTo: '$uid').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => regUser.fromJson(doc.data())).toList());
   }
 //Stream<List<CategoryModel>> get category{
 //  return categoryreference.snapshots().map(_categoryfoemSnapshots);
