@@ -1,3 +1,4 @@
+import 'package:b_provider/services/auth.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,8 @@ class ProfilePage extends StatelessWidget {
   final int lists;
   final int coins;
 
-  const ProfilePage({Key key, this.imageurl, this.shopName, this.phNumber, this.lists, this.coins}) : super(key: key);
+   ProfilePage({Key key, this.imageurl, this.shopName, this.phNumber, this.lists, this.coins}) : super(key: key);
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +46,15 @@ class ProfilePage extends StatelessWidget {
                         Icons.description,
                         color: Colors.white,
                       ),
-                      Icon(
-                        Icons.logout,
-                        color: Colors.white,
-                      ),
+                      FlatButton.icon(
+                          onPressed: () async{
+                            await _auth.signOut();
+                          },
+                          icon: Icon(Icons.person , color: Colors.white,),
+                          label: Text('logout',
+                            style: TextStyle(color: Colors.white),
+                          )
+                      )
                     ],
                   ),
 

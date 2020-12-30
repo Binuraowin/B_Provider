@@ -32,139 +32,154 @@ class _FormPageState extends State<FormPage> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formkey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 70,
-                  child:  (imageUrl != null)
-                      ? Image.network(imageUrl)
-                      :Image.network("https://protocoderspoint.com/wp-content/uploads/2020/10/PROTO-CODERS-POINT-LOGO-water-mark-.png"),
+      backgroundColor: Colors.blue[100],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        title: Text('Sign Up'),
+        actions: <Widget>[
+          FlatButton.icon(
+              onPressed: (){
+                widget.toggleView();
+              },
+              icon: Icon(Icons.person),
+              label: Text('Sign Up'))
+        ],
+      ),
+      body: Container(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formkey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 70,
+                    child:  (imageUrl != null)
+                        ? Image.network(imageUrl)
+                        :Image.network("https://protocoderspoint.com/wp-content/uploads/2020/10/PROTO-CODERS-POINT-LOGO-water-mark-.png"),
 
-
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    decoration: buildInputDecoration(Icons.person,"Full Name"),
-                    validator: (String value){
-                      if(value.isEmpty)
-                      {
-                        return 'Please Enter Name';
-                      }
-                      return null;
-                    },
-                    onSaved: (String value){
-                      name = value;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    decoration:buildInputDecoration(Icons.email,"Email"),
-                    validator: (String value){
-                      if(value.isEmpty)
-                      {
-                        return 'Please a Enter';
-                      }
-                      if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)){
-                        return 'Please a valid Email';
-                      }
-                      return null;
-                    },
-                    onSaved: (String value){
-                      email = value;
-                    },
-                    onChanged: (val){
-                      setState(() {
-                        email= val;
-                      });
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
-                  child: TextFormField(
-
-                    keyboardType: TextInputType.number,
-                    decoration:buildInputDecoration(Icons.phone,"Phone No"),
-                    validator: (String value){
-                      if(value.isEmpty || value.length<10 || value.length>10 )
-                      {
-                        return 'Please enter phone no ';
-                      }
-                      return null;
-                    },
-                    onSaved: (String value){
-                      phone = value;
-                    },
-                    onChanged: (val){
-                      setState(() {
-                        phone= val;
-                      });
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
-                  child: TextFormField(
-                    controller: password,
-                    obscureText: true,
-                    keyboardType: TextInputType.text,
-                    decoration:buildInputDecoration(Icons.lock,"Password"),
-                    validator: (String value){
-                      if(value.isEmpty)
-                      {
-                        return 'Please a Enter Password';
-                      }
-                      return null;
-                    },
-                    onChanged: (val){
-                      setState(() {
-                        pass= val;
-                      });
-                    },
 
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
-                  child: TextFormField(
-                    controller: confirmpassword,
-                    obscureText: true,
-                    keyboardType: TextInputType.text,
-                    decoration:buildInputDecoration(Icons.lock,"Confirm Password"),
-                    validator: (String value){
-                      if(value.isEmpty)
-                      {
-                        return 'Please re-enter password';
-                      }
-                      print(password.text);
-
-                      print(confirmpassword.text);
-
-                      if(password.text!=confirmpassword.text){
-                        return "Password does not match";
-                      }
-
-                      return null;
-                    },
-                    onSaved: (String value){
-                      pass = value;
-                    },
-
+                  SizedBox(
+                    height: 15,
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      decoration: buildInputDecoration(Icons.person,"Full Name"),
+                      validator: (String value){
+                        if(value.isEmpty)
+                        {
+                          return 'Please Enter Name';
+                        }
+                        return null;
+                      },
+                      onSaved: (String value){
+                        name = value;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      decoration:buildInputDecoration(Icons.email,"Email"),
+                      validator: (String value){
+                        if(value.isEmpty)
+                        {
+                          return 'Please a Enter';
+                        }
+                        if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)){
+                          return 'Please a valid Email';
+                        }
+                        return null;
+                      },
+                      onSaved: (String value){
+                        email = value;
+                      },
+                      onChanged: (val){
+                        setState(() {
+                          email= val;
+                        });
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
+                    child: TextFormField(
+
+                      keyboardType: TextInputType.number,
+                      decoration:buildInputDecoration(Icons.phone,"Phone No"),
+                      validator: (String value){
+                        if(value.isEmpty || value.length<10 || value.length>10 )
+                        {
+                          return 'Please enter phone no ';
+                        }
+                        return null;
+                      },
+                      onSaved: (String value){
+                        phone = value;
+                      },
+                      onChanged: (val){
+                        setState(() {
+                          phone= val;
+                        });
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
+                    child: TextFormField(
+                      controller: password,
+                      obscureText: true,
+                      keyboardType: TextInputType.text,
+                      decoration:buildInputDecoration(Icons.lock,"Password"),
+                      validator: (String value){
+                        if(value.isEmpty)
+                        {
+                          return 'Please a Enter Password';
+                        }
+                        return null;
+                      },
+                      onChanged: (val){
+                        setState(() {
+                          pass= val;
+                        });
+                      },
+
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 15,left: 10,right: 10),
+                    child: TextFormField(
+                      controller: confirmpassword,
+                      obscureText: true,
+                      keyboardType: TextInputType.text,
+                      decoration:buildInputDecoration(Icons.lock,"Confirm Password"),
+                      validator: (String value){
+                        if(value.isEmpty)
+                        {
+                          return 'Please re-enter password';
+                        }
+                        print(password.text);
+
+                        print(confirmpassword.text);
+
+                        if(password.text!=confirmpassword.text){
+                          return "Password does not match";
+                        }
+
+                        return null;
+                      },
+                      onSaved: (String value){
+                        pass = value;
+                      },
+
+                    ),
+                  ),
 //                SizedBox(height: 20.0),
 //                RaisedButton(
 //                    color: Colors.blue[700],
@@ -180,64 +195,65 @@ class _FormPageState extends State<FormPage> {
 //                    }
 //                ),
 
-                SizedBox(
-                  width: 200,
-                  height: 50,
-                  child: RaisedButton(
-                    color: Colors.blue,
-                    onPressed: () async {
+                  SizedBox(
+                    width: 200,
+                    height: 50,
+                    child: RaisedButton(
+                      color: Colors.blue,
+                      onPressed: () async {
 
-                     await uploadImage();
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0),
-                        side: BorderSide(color: Colors.blue,width: 2)
+                       await uploadImage();
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                          side: BorderSide(color: Colors.blue,width: 2)
+                      ),
+                      textColor:Colors.white,child: Text("Add Image"),
+
                     ),
-                    textColor:Colors.white,child: Text("Add Image"),
 
                   ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  SizedBox(
+                    width: 200,
+                    height: 50,
+                    child: RaisedButton(
+                      color: Colors.blue,
+                      onPressed: () async {
 
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 200,
-                  height: 50,
-                  child: RaisedButton(
-                    color: Colors.blue,
-                    onPressed: () async {
-
-                      if(_formkey.currentState.validate())
-                      {
-                        print("successful");
-                        dynamic result = await _auth.registerWithEmailAndPassword(email, pass);
-                        if(result == null){
-                          setState(() {
-                            error='enter valid email';
+                        if(_formkey.currentState.validate())
+                        {
+                          print("successful");
+                          dynamic result = await _auth.registerWithEmailAndPassword(email, pass);
+                          if(result == null){
+                            setState(() {
+                              error='enter valid email';
 //                            loading= true;
-                          });
+                            });
+                          }
+                          return;
+                        }else{
+                          print("UnSuccessfull");
                         }
-                        return;
-                      }else{
-                        print("UnSuccessfull");
-                      }
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0),
-                        side: BorderSide(color: Colors.blue,width: 2)
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                          side: BorderSide(color: Colors.blue,width: 2)
+                      ),
+                      textColor:Colors.white,child: Text("Register"),
+
                     ),
-                    textColor:Colors.white,child: Text("Register"),
 
                   ),
-
-                ),
-                SizedBox(height: 12.0),
-                Text(
-                  error,
-                  style: TextStyle(color: Colors.red,fontSize: 14.0),
-                )
-              ],
+                  SizedBox(height: 12.0),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.red,fontSize: 14.0),
+                  )
+                ],
+              ),
             ),
           ),
         ),

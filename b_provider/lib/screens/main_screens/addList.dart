@@ -276,6 +276,7 @@ class _AddListState extends State<AddList> {
                           flex: 4,
                           child: DropdownButton(
                             value: categoryId,
+
                             isDense: true,
                             onChanged: (valueSelectedByUser) {
                               this.categoryId = valueSelectedByUser;
