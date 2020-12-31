@@ -21,11 +21,7 @@ class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
     ProductPage(),
     AddList(),
-    ProfilePage(imageurl: 'https://firebasestorage.googleapis.com/v0/b/bookstore-81666.appspot.com/o/postImage%2Fimage12020-12-24%2014%3A45%3A44.792840?alt=media&token=6e0fc6e5-7808-4b8c-bbf2-993edf1204dd',
-    shopName: 'BShop',
-      phNumber: 0112456678,
-      coins: 3,
-    ),
+    ProfilePage(),
 
   ];
   final List<IconData> _icons = const [
@@ -34,6 +30,7 @@ class _NavScreenState extends State<NavScreen> {
     Icons.home,
     MdiIcons.plus,
     Icons.people,
+
 
 
   ];

@@ -5,6 +5,7 @@ import 'package:b_provider/screens/authenticate/inputdeco.dart';
 import 'package:b_provider/screens/main_screens/nav_screens.dart';
 import 'package:b_provider/services/auth.dart';
 import 'package:b_provider/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,6 +23,12 @@ class AddList extends StatefulWidget {
 
 class _AddListState extends State<AddList> {
   final AuthService _auth = AuthService();
+  User user2 = FirebaseAuth.instance.currentUser;
+  DocumentSnapshot snapshot; //
+  void getData()async{ //use a Async-await function to get the data
+    final data =  await FirebaseFirestore.instance.collection("users").doc(user2.uid).get(); //get the data
+    snapshot = data;
+  }
   final _formKey =GlobalKey<FormState>();
 
       String error = '';
@@ -43,6 +50,7 @@ class _AddListState extends State<AddList> {
 
   @override
   Widget build(BuildContext context) {
+    getData();
     return  Scaffold(
       backgroundColor: Colors.blue[100],
       appBar:AppBar(
@@ -402,27 +410,33 @@ class _AddListState extends State<AddList> {
 
                           if(_formKey.currentState.validate())
                           {
-                            if(name != null || imageUrl != null || unitPrice != null || units != null || categoryId != null ){
-                              // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
-                              DatabaseService().setListning(
-                                  Uuid().v1(),
-                                  categoryId,
-                                  name,
-                                  imageUrl,
-                                  description,
-                                  latitude,longitude,"providerId","providerName",providerTel,unitPrice,units,DateTime.now()
-                              );
-                              Scaffold.of(context)
-                                ..removeCurrentSnackBar()
-                                ..showSnackBar(SnackBar(content: Text('Added Listning')));
+                            if( snapshot.data()['coins']>0){
+                              if(name != null || imageUrl != null || unitPrice != null || units != null || categoryId != null ){
+                                // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
+                                DatabaseService().setListning(
+                                    Uuid().v1(),
+                                    categoryId,
+                                    name,
+                                    imageUrl,
+                                    description,
+                                    latitude,longitude,"providerId","providerName",providerTel,unitPrice,units,DateTime.now()
+                                );
+                                DatabaseService().decremenetCoin();
+                                Scaffold.of(context)
+                                  ..removeCurrentSnackBar()
+                                  ..showSnackBar(SnackBar(content: Text('Added Listning')));
 
-                              Navigator.push(context,
-                                MaterialPageRoute(
-                                    builder:(context) => NavScreen()
-                                ),);
+                                Navigator.push(context,
+                                  MaterialPageRoute(
+                                      builder:(context) => NavScreen()
+                                  ),);
+                              }else{
+                                error = "Add details";
+                              }
                             }else{
-                              error = "Add details";
+                              _showMyDialog();
                             }
+
                             print("successful");
 
                             return;
@@ -535,6 +549,35 @@ class _AddListState extends State<AddList> {
     }
 
     print(imageUrl);}
+
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Empty Coin'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Your coins is over get more '),
+
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 }
 

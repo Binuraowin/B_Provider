@@ -87,6 +87,12 @@ Stream<List<Brew>> get transports{
       "date":date,
     });
   }
+
+  void decremenetCoin(){
+    FirebaseFirestore.instance.collection("users").doc(user.uid).update({
+      "coins":FieldValue.increment(-1),
+    });
+  }
 List<Product> _productsfoemSnapshots(QuerySnapshot snapshot) {
   return snapshot.docs.map((doc){
     return Product(

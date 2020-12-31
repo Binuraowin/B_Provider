@@ -1,22 +1,32 @@
 import 'package:b_provider/services/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
-  final String imageurl;
-  final String shopName;
-  final int phNumber;
-  final int coins;
-
-
-   ProfilePage({Key key, this.imageurl, this.shopName, this.phNumber,this.coins}) : super(key: key);
+//  final String imageurl;
+//  final String shopName;
+//  final int phNumber;
+//  final int coins;
+//
+//
+//   ProfilePage({Key key, this.imageurl, this.shopName, this.phNumber,this.coins}) : super(key: key);
   final AuthService _auth = AuthService();
+  DocumentSnapshot snapshot; //
+  User user2 = FirebaseAuth.instance.currentUser;
+  void getData()async{ //use a Async-await function to get the data
+    final data =  await FirebaseFirestore.instance.collection("users").doc(user2.uid).get(); //get the data
+    snapshot = data;
+  }
 
   @override
   Widget build(BuildContext context) {
+    getData();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    int canbelist = 5-coins;
+    int canbelist = 5-snapshot.data()['coins'];
+
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -95,7 +105,7 @@ class ProfilePage extends StatelessWidget {
                                       height: 40,
                                     ),
                                     Text(
-                                      shopName,
+                                      snapshot.data()['shopName'],
                                       style: TextStyle(
                                         color: Color.fromRGBO(39, 105, 171, 1),
                                         fontFamily: 'Nunito',
@@ -106,7 +116,7 @@ class ProfilePage extends StatelessWidget {
                                       height: 5,
                                     ),
                                     Text(
-                                      phNumber.toString(),
+                                      snapshot.data()['phoneNumner'].toString(),
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontFamily: 'Nunito',
@@ -167,7 +177,7 @@ class ProfilePage extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              coins.toString(),
+                                              snapshot.data()['coins'].toString(),
                                               style: TextStyle(
                                                 color: Color.fromRGBO(
                                                     39, 105, 171, 1),
@@ -215,7 +225,7 @@ class ProfilePage extends StatelessWidget {
                     height: 30,
                   ),
                   Container(
-                      child:Image.network(imageurl)
+                      child:Image.network(snapshot.data()['imageurl'])
                   ),
                   SizedBox(
                     height: 30,
