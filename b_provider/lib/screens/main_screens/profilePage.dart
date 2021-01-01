@@ -1,3 +1,4 @@
+import 'package:b_provider/screens/authenticate/update.dart';
 import 'package:b_provider/services/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -303,7 +304,20 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () async{
+                                  Navigator.push(
 
+                                    context,
+                                    // Create the SelectionScreen in the next step.
+                                    MaterialPageRoute(builder: (context) => UpdatePage(
+                                      name: snapshot.data()['shopName'],
+                                      imageUrl: snapshot.data()['imageurl'],
+                                      phone:  snapshot.data()['phoneNumner'],
+                                      uid: user2.uid,
+                                      coins: snapshot.data()['coins'],
+                                    )),
+
+
+                                  );
 
                                 }
                             ),
