@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:b_provider/screens/authenticate/inputdeco.dart';
 import 'package:b_provider/services/auth.dart';
 import 'package:b_provider/services/database.dart';
+import 'package:b_provider/shared/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -397,8 +398,17 @@ class _ediPageState extends State<ediPage> {
                       child: RaisedButton(
                         color: Colors.blue[100],
                         onPressed: () async{
+                          setState(() {
+                            loading = true;
+                          });
+                          dynamic result =await uploadImage();
+                          if(result == null){
+                            setState(() {
+                              loading = false;
+                            });
+                          }
 
-                          uploadImage();
+//                          uploadImage();
                         },
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50.0),
@@ -486,7 +496,7 @@ class _ediPageState extends State<ediPage> {
 
                     SizedBox(height: 20.0),
                     (imageUrl != null)
-                        ? Image.network(imageUrl)
+                        ? Image.network(imageUrl):loading ? Loading()
                         : Placeholder(fallbackHeight: 150.0,fallbackWidth: double.infinity, color: Colors.transparent,),
                     SizedBox(height: 20.0),
 

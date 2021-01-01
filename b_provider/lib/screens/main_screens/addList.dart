@@ -5,6 +5,7 @@ import 'package:b_provider/screens/authenticate/inputdeco.dart';
 import 'package:b_provider/screens/main_screens/nav_screens.dart';
 import 'package:b_provider/services/auth.dart';
 import 'package:b_provider/services/database.dart';
+import 'package:b_provider/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -366,8 +367,17 @@ class _AddListState extends State<AddList> {
                       child: RaisedButton(
                         color: Colors.blue[100],
                         onPressed: () async{
+                          setState(() {
+                            loading = true;
+                          });
+                          dynamic result =await uploadImage();
+                          if(result == null){
+                            setState(() {
+                              loading = false;
+                            });
+                          }
 
-                          uploadImage();
+//                          uploadImage();
                         },
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50.0),
@@ -455,7 +465,7 @@ class _AddListState extends State<AddList> {
 
                     SizedBox(height: 20.0),
                     (imageUrl != null)
-                        ? Image.network(imageUrl)
+                        ? Image.network(imageUrl):loading ? Loading()
                         : Placeholder(fallbackHeight: 150.0,fallbackWidth: double.infinity, color: Colors.transparent,),
                     SizedBox(height: 20.0),
 
