@@ -68,7 +68,11 @@ Stream<List<Brew>> get transports{
       int providerTel,
       double unitPrice,
       int units,
-      DateTime date
+      DateTime date,
+      int likes,
+      int views,
+      String providerImage,
+      String district,
       ){
 
     return _db.collection('categories').doc('$categoryId').collection("subCategories").doc(listId).set({
@@ -85,6 +89,10 @@ Stream<List<Brew>> get transports{
       "unitPrice":unitPrice,
       "units":units,
       "date":date,
+      "likes":likes,
+      "views":views,
+      "providerImage":providerImage,
+      "district":district,
     });
   }
 

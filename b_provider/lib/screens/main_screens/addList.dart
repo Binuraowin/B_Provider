@@ -47,6 +47,9 @@ class _AddListState extends State<AddList> {
       DateTime date;
       bool loading = false;
       LatLng location;
+      String district;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -306,6 +309,52 @@ class _AddListState extends State<AddList> {
                     ),
                   );
                 }),
+                    StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance.collection('district').snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData)
+                            return Center(
+//                      child: CupertinoActivityIndicator(),
+                            );
+
+                          return Container(
+                            padding: EdgeInsets.only(bottom: 16.0),
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                    flex: 2,
+                                    child: Container(
+                                      padding: EdgeInsets.fromLTRB(12.0, 10.0, 10.0, 10.0),
+                                      child: Text(
+                                        "District",
+                                      ),
+                                    )),
+                                new Expanded(
+                                  flex: 4,
+                                  child: DropdownButton(
+                                    value: district,
+
+                                    isDense: true,
+                                    onChanged: (valueSelectedByUser) {
+                                      this.district = valueSelectedByUser;
+                                      print(categoryId);
+//                              _onShopDropItemSelected(valueSelectedByUser);
+                                    },
+                                    hint: Text('Choose District'),
+                                    items: snapshot.data.docs
+                                        .map((DocumentSnapshot document) {
+                                      return DropdownMenuItem<String>(
+                                        value: document.data()['Name'],
+
+                                        child: Text(document.data()['Name'] ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
 
                     SizedBox(height: 20.0),
                     SizedBox(
@@ -419,7 +468,17 @@ class _AddListState extends State<AddList> {
                                     name,
                                     imageUrl,
                                     description,
-                                    latitude,longitude,"providerId","providerName",providerTel,unitPrice,units,DateTime.now()
+                                    latitude,
+                                    longitude,
+                                    user2.uid,
+                                    snapshot.data()['shopName'],
+                                    providerTel,
+                                    unitPrice,
+                                    units,
+                                    DateTime.now(),
+                                    0,0,
+                                    snapshot.data()['imageurl'],
+                                    district
                                 );
                                 DatabaseService().decremenetCoin();
                                 Scaffold.of(context)
