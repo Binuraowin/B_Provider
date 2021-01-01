@@ -73,6 +73,7 @@ Stream<List<Brew>> get transports{
       int views,
       String providerImage,
       String district,
+      String address,
       ){
 
     return _db.collection('categories').doc('$categoryId').collection("subCategories").doc(listId).set({
@@ -93,6 +94,7 @@ Stream<List<Brew>> get transports{
       "views":views,
       "providerImage":providerImage,
       "district":district,
+      "address":address,
     });
   }
 

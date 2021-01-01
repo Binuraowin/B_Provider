@@ -8,6 +8,8 @@ import 'package:b_provider/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -48,6 +50,7 @@ class _AddListState extends State<AddList> {
       bool loading = false;
       LatLng location;
       String district;
+      String address;
 
 
 
@@ -309,52 +312,52 @@ class _AddListState extends State<AddList> {
                     ),
                   );
                 }),
-                    StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance.collection('district').snapshots(),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData)
-                            return Center(
-//                      child: CupertinoActivityIndicator(),
-                            );
-
-                          return Container(
-                            padding: EdgeInsets.only(bottom: 16.0),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                    flex: 2,
-                                    child: Container(
-                                      padding: EdgeInsets.fromLTRB(12.0, 10.0, 10.0, 10.0),
-                                      child: Text(
-                                        "District",
-                                      ),
-                                    )),
-                                new Expanded(
-                                  flex: 4,
-                                  child: DropdownButton(
-                                    value: district,
-
-                                    isDense: true,
-                                    onChanged: (valueSelectedByUser) {
-                                      this.district = valueSelectedByUser;
-                                      print(categoryId);
-//                              _onShopDropItemSelected(valueSelectedByUser);
-                                    },
-                                    hint: Text('Choose District'),
-                                    items: snapshot.data.docs
-                                        .map((DocumentSnapshot document) {
-                                      return DropdownMenuItem<String>(
-                                        value: document.data()['Name'],
-
-                                        child: Text(document.data()['Name'] ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
+//                    StreamBuilder<QuerySnapshot>(
+//                        stream: FirebaseFirestore.instance.collection('district').snapshots(),
+//                        builder: (context, snapshot) {
+//                          if (!snapshot.hasData)
+//                            return Center(
+////                      child: CupertinoActivityIndicator(),
+//                            );
+//
+//                          return Container(
+//                            padding: EdgeInsets.only(bottom: 16.0),
+//                            child: Row(
+//                              children: <Widget>[
+//                                Expanded(
+//                                    flex: 2,
+//                                    child: Container(
+//                                      padding: EdgeInsets.fromLTRB(12.0, 10.0, 10.0, 10.0),
+//                                      child: Text(
+//                                        "District",
+//                                      ),
+//                                    )),
+//                                new Expanded(
+//                                  flex: 4,
+//                                  child: DropdownButton(
+//                                    value: district,
+//
+//                                    isDense: true,
+//                                    onChanged: (valueSelectedByUser) {
+//                                      this.district = valueSelectedByUser;
+//                                      print(categoryId);
+////                              _onShopDropItemSelected(valueSelectedByUser);
+//                                    },
+//                                    hint: Text('Choose District'),
+//                                    items: snapshot.data.docs
+//                                        .map((DocumentSnapshot document) {
+//                                      return DropdownMenuItem<String>(
+//                                        value: document.data()['Name'],
+//
+//                                        child: Text(document.data()['Name'] ),
+//                                      );
+//                                    }).toList(),
+//                                  ),
+//                                ),
+//                              ],
+//                            ),
+//                          );
+//                        }),
 
                     SizedBox(height: 20.0),
                     SizedBox(
@@ -405,11 +408,17 @@ class _AddListState extends State<AddList> {
                             );
                             longitude= location.longitude;
                             latitude= location.latitude;
+                            final coordinates = new Coordinates(latitude,longitude);
+                            var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+                            var first = addresses.first;
+                              district = first.subAdminArea;
+                            address= first.featureName;
                             Scaffold.of(context)
                               ..removeCurrentSnackBar()
-                              ..showSnackBar(SnackBar(content: Text("$latitude")));
+                              ..showSnackBar(SnackBar(content: Text("${first.featureName}")));
 
                           },
+
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50.0),
                             side: BorderSide(color: Colors.blue,width: 2)
@@ -478,7 +487,8 @@ class _AddListState extends State<AddList> {
                                     DateTime.now(),
                                     0,0,
                                     snapshot.data()['imageurl'],
-                                    district
+                                    district,
+                                    address
                                 );
                                 DatabaseService().decremenetCoin();
                                 Scaffold.of(context)
@@ -569,7 +579,13 @@ class _AddListState extends State<AddList> {
     );
 
   }
-
+//  _getLocation() async
+//  {
+//    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+//    debugPrint('location: ${position.latitude}');
+//
+//    print("${first.featureName} : ${first.addressLine}");
+//  }
 
   uploadImage() async {
     final _storage = FirebaseStorage.instance;

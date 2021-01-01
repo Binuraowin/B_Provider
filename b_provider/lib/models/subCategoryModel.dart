@@ -17,6 +17,8 @@ class SubCategoryModel{
   int likes;
   int views;
   String providerImage;
+  String district;
+  String address;
 
 
   SubCategoryModel(
@@ -37,6 +39,8 @@ class SubCategoryModel{
         @required this.likes,
         @required this.views,
         @required this.providerImage,
+        @required this.district,
+        @required this.address,
 
       } );
   factory SubCategoryModel.fromJson(Map<String, dynamic> json) {
@@ -57,6 +61,8 @@ class SubCategoryModel{
       likes: json['likes'] ?? '',
       views: json['views'] ?? '',
       providerImage: json['providerImage'] ?? '',
+      district: json['district'] ?? '',
+      address: json['address'] ?? '',
 
     );
 
