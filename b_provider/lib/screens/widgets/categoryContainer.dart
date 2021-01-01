@@ -1,5 +1,6 @@
 
 
+import 'package:b_provider/screens/main_screens/editPage.dart';
 import 'package:b_provider/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,10 +32,12 @@ class categoryContainer extends StatelessWidget {
   final int views;
   final String categoryId;
   final String providerImage;
+  final String district;
+  final String address;
 
    DocumentSnapshot snapshot;
 
-   categoryContainer({Key key, this.id, this.imageUrl, this.name, this.unitPrice, this.latitude, this.longitude, this.providerName, this.providerTel, this.units, this.description, this.date, this.providerId, this.likes, this.views, this.categoryId, this.providerImage}) : super(key: key);
+   categoryContainer({Key key, this.id, this.imageUrl, this.name, this.unitPrice, this.latitude, this.longitude, this.providerName, this.providerTel, this.units, this.description, this.date, this.providerId, this.likes, this.views, this.categoryId, this.providerImage, this.district, this.address}) : super(key: key);
 
    void getData()async{ //use a Async-await function to get the data
 
@@ -99,6 +102,9 @@ class categoryContainer extends StatelessWidget {
                 date: date,
                 categoryId: categoryId,
                 id: id,
+                providerId: providerId,
+                district: district,
+                address: address,
 
               ),
             )
@@ -169,8 +175,11 @@ class _postStats extends StatefulWidget {
   final DateTime date;
   final String categoryId;
   final String id;
+  final String providerId;
+  final String district;
+  final String address;
 
-  _postStats({Key key, this.likes, this.views, this.imageUrl, this.latitude, this.longitude, this.providerName, this.providerTel, this.units, this.description, this.unitPrice, this.productName, this.date, this.categoryId, this.id}) : super(key: key);
+  _postStats({Key key, this.likes, this.views, this.imageUrl, this.latitude, this.longitude, this.providerName, this.providerTel, this.units, this.description, this.unitPrice, this.productName, this.date, this.categoryId, this.id, this.providerId, this.district, this.address}) : super(key: key);
 
   @override
   __postStatsState createState() => __postStatsState();
@@ -242,26 +251,36 @@ class __postStatsState extends State<_postStats> {
               ),
               label : 'Edit',
               onTap: () {
+//                Navigator.push(context, MaterialPageRoute(builder: context =>))
 
-//                Navigator.push(
-//
-//                  context,
-//                  // Create the SelectionScreen in the next step.
-//                  MaterialPageRoute(builder: (context) => DescriptionPage(
-//                    imageUrl: widget.imageUrl,
-//                    latitude: widget.latitude,
-//                    longitude: widget.longitude,
-//                    productName: widget.productName,
-//                    providerTel: widget.providerTel,
-//                    units: widget.units,
-//                    description: widget.description,
-//                    unitPrice: widget.unitPrice,
-//                    providerName: widget.providerName,
-//                    date: widget.date,
-//                  )),
-//
-//
-//                );
+                Navigator.push(
+
+                  context,
+                  // Create the SelectionScreen in the next step.
+                  MaterialPageRoute(builder: (context) => ediPage(
+                    listId: widget.id,
+                    categoryId: widget.categoryId,
+                    name: widget.productName,
+                    imageUrl: widget.imageUrl,
+                    description: widget.description,
+                    latitude: widget.latitude,
+                    longitude: widget.longitude,
+                    providerId: widget.providerId,
+                    providerName: widget.providerName,
+                    providerTel: widget.providerTel,
+                    unitPrice: widget.unitPrice,
+                   units: widget.units,
+                    date: widget.date,
+                    district: widget.district,
+                    address: widget.address,
+                    likes: widget.likes,
+                    views: widget.views,
+
+
+                  )),
+
+
+                );
               },
             ),
             _PostButton(

@@ -98,6 +98,49 @@ Stream<List<Brew>> get transports{
     });
   }
 
+  Future<void> updatelistining(
+      String listId,
+      String categoryId,
+      String name,
+      String imageUrl,
+      String description,
+      double latitude,
+      double longitude,
+      String providerId,
+      String providerName,
+      int providerTel,
+      double unitPrice,
+      int units,
+      DateTime date,
+      int likes,
+      int views,
+      String providerImage,
+      String district,
+      String address,
+      ){
+
+    return _db.collection('categories').doc('$categoryId').collection("subCategories").doc(listId).set({
+      "listId":listId,
+      "categoryId":categoryId,
+      "Name":name,
+      "imageUrl":imageUrl,
+      "description":description,
+      "latitude":latitude,
+      "longitude":longitude,
+      "providerId":providerId,
+      "providerName":providerName,
+      "providerTel":providerTel,
+      "unitPrice":unitPrice,
+      "units":units,
+      "date":date,
+      "likes":likes,
+      "views":views,
+      "providerImage":providerImage,
+      "district":district,
+      "address":address,
+    });
+  }
+
   void decremenetCoin(){
     FirebaseFirestore.instance.collection("users").doc(user.uid).update({
       "coins":FieldValue.increment(-1),

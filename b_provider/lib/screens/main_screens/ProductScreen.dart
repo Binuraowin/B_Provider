@@ -83,6 +83,8 @@ class _ProductPageState extends State<ProductPage> {
                           providerId: snapshot.data[index].providerId,
                           categoryId: snapshot.data[index].categoryId ,
                           providerImage: snapshot.data[index].providerImage,
+                          district: snapshot.data[index].district,
+                          address: snapshot.data[index].address,
 
                         );
                       }

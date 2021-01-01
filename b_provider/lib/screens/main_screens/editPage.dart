@@ -1,58 +1,85 @@
+
+
 import 'dart:io';
 
-import 'package:b_provider/cofig/palette.dart';
 import 'package:b_provider/screens/authenticate/inputdeco.dart';
-import 'package:b_provider/screens/main_screens/nav_screens.dart';
 import 'package:b_provider/services/auth.dart';
 import 'package:b_provider/services/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
-import 'package:b_provider/screens/main_screens/map.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:b_provider/models/categoryModel.dart';
 
-class AddList extends StatefulWidget {
+import 'map.dart';
+import 'nav_screens.dart';
+
+class ediPage extends StatefulWidget {
+  final String listId;
+  final String categoryId;
+  final  String name;
+  final String imageUrl;
+  final String description;
+  final double latitude;
+  final double longitude;
+  final  String providerId;
+  final String providerName;
+  final int providerTel;
+  final double unitPrice;
+  final  int units;
+  final  DateTime date;
+  final  LatLng location;
+  final  String district;
+  final  String address;
+  final int likes;
+  final int views;
+
+  const ediPage({Key key, this.listId, this.categoryId, this.name, this.imageUrl, this.description, this.latitude, this.longitude, this.providerId, this.providerName, this.providerTel, this.unitPrice, this.units, this.date, this.location, this.district, this.address, this.likes, this.views}) : super(key: key);
+
   @override
-  _AddListState createState() => _AddListState();
+  _ediPageState createState() => _ediPageState(listId,categoryId,name,imageUrl,description,latitude,longitude,providerId,providerName,providerTel,unitPrice,units,date,location,district,address,likes,views);
 }
 
-class _AddListState extends State<AddList> {
+class _ediPageState extends State<ediPage> {
   final AuthService _auth = AuthService();
+
   User user2 = FirebaseAuth.instance.currentUser;
-  DocumentSnapshot snapshot; //
+
+  DocumentSnapshot snapshot;
+
+  _ediPageState(this.listId, this.categoryId, this.name, this.imageUrl, this.description, this.latitude, this.longitude, this.providerId, this.providerName, this.providerTel, this.unitPrice, this.units, this.date, this.location, this.district, this.address, this.likes, this.views);
   void getData()async{ //use a Async-await function to get the data
     final data =  await FirebaseFirestore.instance.collection("users").doc(user2.uid).get(); //get the data
     snapshot = data;
   }
+
   final _formKey =GlobalKey<FormState>();
 
-      String error = '';
-      String listId;
-          String categoryId;
-      String name;
-          String imageUrl;
-      String description;
-          double latitude;
-      double longitude;
-          String providerId;
-      String providerName;
-          int providerTel;
-      double unitPrice;
-          int units;
-      DateTime date;
-      bool loading = false;
-//      LatLng location;
-      String district;
-      String address;
-
-
+  String error = '';
+  bool loading = false;
+   String listId;
+   String categoryId;
+    String name;
+   String imageUrl;
+   String description;
+   double latitude;
+   double longitude;
+    String providerId;
+   String providerName;
+   int providerTel;
+   double unitPrice;
+    int units;
+    DateTime date;
+    LatLng location;
+    String district;
+    String address;
+   int likes;
+   int views;
 
   @override
   Widget build(BuildContext context) {
@@ -107,25 +134,25 @@ class _AddListState extends State<AddList> {
                 child: Column(
                   children: <Widget>[
                     SizedBox(height: 100.0),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
-                      child: TextFormField(
-                        keyboardType: TextInputType.text,
-                        decoration: buildInputDecoration(Icons.shop,"Product Name"),
-                        validator: (String value){
-                          if(value.isEmpty)
-                          {
-                            return 'Please Enter Name';
-                          }
-                          return null;
-                        },
-                        onChanged: (val){
-                          setState(() {
-                            name= val;
-                          });
-                        },
-                      ),
-                    ),
+//                    Padding(
+//                      padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
+//                      child: TextFormField(
+//                        keyboardType: TextInputType.text,
+//                        decoration: buildInputDecoration(Icons.shop,"Product Name"),
+//                        validator: (String value){
+//                          if(value.isEmpty)
+//                          {
+//                            return 'Please Enter Name';
+//                          }
+//                          return null;
+//                        },
+//                        onChanged: (val){
+//                          setState(() {
+//                            name= val;
+//                          });
+//                        },
+//                      ),
+//                    ),
 //                    TextFormField(
 //                      decoration: InputDecoration(
 //                        hintText: 'Name',
@@ -140,6 +167,7 @@ class _AddListState extends State<AddList> {
                     Padding(
                       padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
                       child: TextFormField(
+                        initialValue: description,
                         keyboardType: TextInputType.text,
                         maxLength: 1000,
                         decoration: buildInputDecoration(Icons.description,"Description"),
@@ -171,6 +199,7 @@ class _AddListState extends State<AddList> {
                     Padding(
                       padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
                       child: TextFormField(
+                        initialValue: units.toString(),
                         keyboardType: TextInputType.number,
                         decoration: buildInputDecoration(Icons.ad_units,"Units"),
                         validator: (String value){
@@ -203,6 +232,7 @@ class _AddListState extends State<AddList> {
                     Padding(
                       padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
                       child: TextFormField(
+                        initialValue: unitPrice.toString(),
                         keyboardType: TextInputType.number,
                         decoration: buildInputDecoration(Icons.monetization_on_rounded,"Unit Price"),
                         validator: (String value){
@@ -237,6 +267,7 @@ class _AddListState extends State<AddList> {
                     Padding(
                       padding: const EdgeInsets.only(bottom:15,left: 10,right: 10),
                       child: TextFormField(
+                        initialValue: providerTel.toString(),
                         keyboardType: TextInputType.number,
                         decoration: buildInputDecoration(Icons.phone,"Telephone"),
                         validator: (String value){
@@ -266,52 +297,52 @@ class _AddListState extends State<AddList> {
 //                        });
 //                      },
 //                    ),
-                StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance.collection('categories').snapshots(),
-                    builder: (context, snapshot) {
-                  if (!snapshot.hasData)
-                    return Center(
-//                      child: CupertinoActivityIndicator(),
-                    );
-
-                  return Container(
-                    padding: EdgeInsets.only(bottom: 16.0),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                            flex: 2,
-                            child: Container(
-                              padding: EdgeInsets.fromLTRB(12.0, 10.0, 10.0, 10.0),
-                              child: Text(
-                                "Category",
-                              ),
-                            )),
-                        new Expanded(
-                          flex: 4,
-                          child: DropdownButton(
-                            value: categoryId,
-
-                            isDense: true,
-                            onChanged: (valueSelectedByUser) {
-                              this.categoryId = valueSelectedByUser;
-                              print(categoryId);
-//                              _onShopDropItemSelected(valueSelectedByUser);
-                            },
-                            hint: Text('Choose Category'),
-                            items: snapshot.data.docs
-                                .map((DocumentSnapshot document) {
-                              return DropdownMenuItem<String>(
-                                value: document.data()['Id'],
-
-                                child: Text(document.data()['Name'] ),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
+//                    StreamBuilder<QuerySnapshot>(
+//                        stream: FirebaseFirestore.instance.collection('categories').snapshots(),
+//                        builder: (context, snapshot) {
+//                          if (!snapshot.hasData)
+//                            return Center(
+////                      child: CupertinoActivityIndicator(),
+//                            );
+//
+//                          return Container(
+//                            padding: EdgeInsets.only(bottom: 16.0),
+//                            child: Row(
+//                              children: <Widget>[
+//                                Expanded(
+//                                    flex: 2,
+//                                    child: Container(
+//                                      padding: EdgeInsets.fromLTRB(12.0, 10.0, 10.0, 10.0),
+//                                      child: Text(
+//                                        "Category",
+//                                      ),
+//                                    )),
+//                                new Expanded(
+//                                  flex: 4,
+//                                  child: DropdownButton(
+//                                    value: categoryId,
+//
+//                                    isDense: true,
+//                                    onChanged: (valueSelectedByUser) {
+//                                      this.categoryId = valueSelectedByUser;
+//                                      print(categoryId);
+////                              _onShopDropItemSelected(valueSelectedByUser);
+//                                    },
+//                                    hint: Text('Choose Category'),
+//                                    items: snapshot.data.docs
+//                                        .map((DocumentSnapshot document) {
+//                                      return DropdownMenuItem<String>(
+//                                        value: document.data()['Id'],
+//
+//                                        child: Text(document.data()['Name'] ),
+//                                      );
+//                                    }).toList(),
+//                                  ),
+//                                ),
+//                              ],
+//                            ),
+//                          );
+//                        }),
 //                    StreamBuilder<QuerySnapshot>(
 //                        stream: FirebaseFirestore.instance.collection('district').snapshots(),
 //                        builder: (context, snapshot) {
@@ -397,27 +428,27 @@ class _AddListState extends State<AddList> {
                       height: 50,
                       child: RaisedButton(
                         color: Colors.blue[100],
-                          onPressed: () async {
-                            final LatLng location = await Navigator.push(
+                        onPressed: () async {
+                          final LatLng location = await Navigator.push(
 
-                              context,
-                              // Create the SelectionScreen in the next step.
-                              MaterialPageRoute(builder: (context) => MyHomePage()),
+                            context,
+                            // Create the SelectionScreen in the next step.
+                            MaterialPageRoute(builder: (context) => MyHomePage()),
 
 
-                            );
-                            longitude= location.longitude;
-                            latitude= location.latitude;
-                            final coordinates = new Coordinates(latitude,longitude);
-                            var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
-                            var first = addresses.first;
-                              district = first.subAdminArea;
-                            address= first.featureName;
-                            Scaffold.of(context)
-                              ..removeCurrentSnackBar()
-                              ..showSnackBar(SnackBar(content: Text("${first.featureName}")));
+                          );
+                          longitude= location.longitude;
+                          latitude= location.latitude;
+                          final coordinates = new Coordinates(latitude,longitude);
+                          var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+                          var first = addresses.first;
+                          district = first.subAdminArea;
+                          address= first.featureName;
+                          Scaffold.of(context)
+                            ..removeCurrentSnackBar()
+                            ..showSnackBar(SnackBar(content: Text("${first.featureName}")));
 
-                          },
+                        },
 
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50.0),
@@ -468,11 +499,11 @@ class _AddListState extends State<AddList> {
 
                           if(_formKey.currentState.validate())
                           {
-                            if( snapshot.data()['coins']>0){
-                              if(name != null || imageUrl != null || unitPrice != null || units != null || categoryId != null ){
+
+                              if(name != null || imageUrl != null || unitPrice != null || units != null  ){
                                 // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
                                 DatabaseService().setListning(
-                                    Uuid().v1(),
+                                    listId,
                                     categoryId,
                                     name,
                                     imageUrl,
@@ -485,26 +516,25 @@ class _AddListState extends State<AddList> {
                                     unitPrice,
                                     units,
                                     DateTime.now(),
-                                    0,0,
+                                    likes,
+                                    views,
                                     snapshot.data()['imageurl'],
                                     district,
                                     address
                                 );
-                                DatabaseService().decremenetCoin();
-                                Scaffold.of(context)
-                                  ..removeCurrentSnackBar()
-                                  ..showSnackBar(SnackBar(content: Text('Added Listning')));
-
                                 Navigator.push(context,
                                   MaterialPageRoute(
                                       builder:(context) => NavScreen()
                                   ),);
+                                Scaffold.of(context)
+                                  ..removeCurrentSnackBar()
+                                  ..showSnackBar(SnackBar(content: Text('Added Listning')));
+
+
                               }else{
                                 error = "Add details";
                               }
-                            }else{
-                              _showMyDialog();
-                            }
+
 
                             print("successful");
 
@@ -579,13 +609,6 @@ class _AddListState extends State<AddList> {
     );
 
   }
-//  _getLocation() async
-//  {
-//    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-//    debugPrint('location: ${position.latitude}');
-//
-//    print("${first.featureName} : ${first.addressLine}");
-//  }
 
   uploadImage() async {
     final _storage = FirebaseStorage.instance;
@@ -625,7 +648,6 @@ class _AddListState extends State<AddList> {
 
     print(imageUrl);}
 
-
   Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -653,42 +675,4 @@ class _AddListState extends State<AddList> {
       },
     );
   }
-
 }
-
-//class locationButton extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return  RaisedButton(
-//        color: Colors.blue[700],
-//        child: Text(
-//          'Add Location',
-//          style: TextStyle(
-//              color: Colors.white
-//          ),
-//        ),
-//        onPressed: () {
-//          _navigateAndDisplaySelection(context);
-//        }
-//    );
-//  }
-//  _navigateAndDisplaySelection(BuildContext context) async {
-//    // Navigator.push returns a Future that completes after calling
-//    // Navigator.pop on the Selection Screen.
-//
-//    final LatLng location = await Navigator.push(
-//
-//      context,
-//      // Create the SelectionScreen in the next step.
-//      MaterialPageRoute(builder: (context) => MyHomePage()),
-//
-//
-//    );
-//    Scaffold.of(context)
-//      ..removeCurrentSnackBar()
-//      ..showSnackBar(SnackBar(content: Text("$location")));
-//  }
-//
-//
-//}
-//
