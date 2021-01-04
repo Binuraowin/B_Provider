@@ -7,6 +7,8 @@ import 'package:b_provider/models/brew.dart';
 import 'package:b_provider/models/categoryModel.dart';
 import 'package:b_provider/models/product.dart';
 
+import 'auth.dart';
+
 class DatabaseService {
   FirebaseFirestore _db = FirebaseFirestore.instance;
 //   DatabaseService(this.uid);
@@ -189,6 +191,14 @@ List<Product> _productsfoemSnapshots(QuerySnapshot snapshot) {
   Stream<List<regUser>> getUser(String uid) {
     return _db.collection('users').where('uid', isEqualTo: '$uid').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => regUser.fromJson(doc.data())).toList());
+  }
+
+  final AuthService _auth = AuthService();
+  DocumentSnapshot snapshot; //
+  User user2 = FirebaseAuth.instance.currentUser;
+  void getData()async{ //use a Async-await function to get the data
+    final data =  await FirebaseFirestore.instance.collection("users").doc(user2.uid).get(); //get the data
+    snapshot = data;
   }
 //Stream<List<CategoryModel>> get category{
 //  return categoryreference.snapshots().map(_categoryfoemSnapshots);

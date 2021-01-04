@@ -479,7 +479,7 @@ class _AddListState extends State<AddList> {
                           if(_formKey.currentState.validate())
                           {
                             if( snapshot.data()['coins']>0){
-                              if(name != null || imageUrl != null || unitPrice != null || units != null || categoryId != null ){
+                              if(name != null || imageUrl != null || unitPrice != null || units != null || categoryId != null || address != null || district != null){
                                 // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
                                 DatabaseService().setListning(
                                     Uuid().v1(),

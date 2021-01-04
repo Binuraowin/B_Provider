@@ -59,7 +59,7 @@ class _FormPageState extends State<FormPage> {
                     radius: 70,
                     child:  (imageUrl != null)
                         ? Image.network(imageUrl)
-                        :Image.network("https://protocoderspoint.com/wp-content/uploads/2020/10/PROTO-CODERS-POINT-LOGO-water-mark-.png"),
+                        :Image.asset('image/finderlogo.png'),
 
 
                   ),
