@@ -40,7 +40,7 @@ class SplashScreenPage extends StatelessWidget {
       navigateAfterSeconds: new HomeWrapper(),
       backgroundColor: Colors.blue[100],
       title: new Text('  ',textScaleFactor: 2,),
-      image: Image.asset('image/finderlogo.png'),
+      image: Image.asset('image/lastprovider.png'),
       loadingText: Text("Loading"),
       photoSize: 150.0,
       loaderColor: Colors.blue[700],
