@@ -25,6 +25,7 @@ class DatabaseService {
   final int phoneNumner,
   final int coins,
   final String imageurl,
+  final int lists,
     ) async {
     return await brewreference.doc(uid).set({
      'name':name,
@@ -33,6 +34,7 @@ class DatabaseService {
       'phoneNumner':phoneNumner,
       'coins':coins,
       'imageurl':imageurl,
+      'lists':lists,
 
     });
 
@@ -146,6 +148,11 @@ Stream<List<Brew>> get transports{
   void decremenetCoin(){
     FirebaseFirestore.instance.collection("users").doc(user.uid).update({
       "coins":FieldValue.increment(-1),
+    });
+  }
+  void incrementlist(){
+    FirebaseFirestore.instance.collection("users").doc(user.uid).update({
+      "lists":FieldValue.increment(1),
     });
   }
 List<Product> _productsfoemSnapshots(QuerySnapshot snapshot) {

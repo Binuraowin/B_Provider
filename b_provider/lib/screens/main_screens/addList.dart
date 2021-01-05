@@ -479,7 +479,7 @@ class _AddListState extends State<AddList> {
                           if(_formKey.currentState.validate())
                           {
                             if( snapshot.data()['coins']>0){
-                              if(name != null || imageUrl != null || unitPrice != null || units != null || categoryId != null || address != null || district != null){
+                              if(imageUrl != null && categoryId != null && address != null && district != null){
                                 // DatabaseService().setPost(caption, imageUrl, "dra,aclub",Uuid().v1() , "https://www.nsbm.ac.lk/wp-content/uploads/2019/08/footer_logo.png", "Dancing Club", DateTime.now());
                                 DatabaseService().setListning(
                                     Uuid().v1(),
@@ -501,6 +501,7 @@ class _AddListState extends State<AddList> {
                                     address
                                 );
                                 DatabaseService().decremenetCoin();
+                                DatabaseService().incrementlist();
                                 Scaffold.of(context)
                                   ..removeCurrentSnackBar()
                                   ..showSnackBar(SnackBar(content: Text('Added Listning')));
@@ -510,7 +511,10 @@ class _AddListState extends State<AddList> {
                                       builder:(context) => NavScreen()
                                   ),);
                               }else{
-                                error = "Add details";
+                                setState(() {
+                                  error = "Add details";
+                                });
+
                               }
                             }else{
                               _showMyDialog();
@@ -663,6 +667,41 @@ class _AddListState extends State<AddList> {
       },
     );
   }
+//
+//  Future<void> _shoeerror() async {
+//    return showDialog<void>(
+//      context: context,
+//      barrierDismissible: false, // user must tap button!
+//      builder: (BuildContext context) {
+//        return AlertDialog(
+//          title: Text('Add Details'),
+//          content: SingleChildScrollView(
+//            child: ListBody(
+//              children: <Widget>[
+//                Row(
+//                  children: [
+//                    Icon(Icons.error_outline,color: Colors.red,),
+//                    Text('Add Category,Image ',style: TextStyle(color: Colors.red),),
+//                    Text(' and Location',style: TextStyle(color: Colors.red),),
+//                  ],
+//                )
+//
+//
+//              ],
+//            ),
+//          ),
+//          actions: <Widget>[
+//            TextButton(
+//              child: Text('OK'),
+//              onPressed: () {
+//                Navigator.of(context).pop();
+//              },
+//            ),
+//          ],
+//        );
+//      },
+//    );
+//  }
 
 }
 

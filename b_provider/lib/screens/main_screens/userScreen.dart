@@ -21,6 +21,7 @@ class UserPage extends StatelessWidget {
                 shopName: snapshot.data[index].shopName,
                 phNumber: snapshot.data[index].phoneNumner,
                 coins: snapshot.data[index].coins,
+                lists: snapshot.data[index].lists,
               );
             }
         );

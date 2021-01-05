@@ -12,12 +12,13 @@ class ProfilePage extends StatefulWidget {
   final String shopName;
   final int phNumber;
   final int coins;
+  final int lists;
 
 
-   ProfilePage({Key key, this.imageurl, this.shopName, this.phNumber,this.coins}) : super(key: key);
+   ProfilePage({Key key, this.imageurl, this.shopName, this.phNumber,this.coins, this.lists}) : super(key: key);
 
   @override
-  _ProfilePageState createState() => _ProfilePageState(imageurl,shopName,phNumber,coins);
+  _ProfilePageState createState() => _ProfilePageState(imageurl,shopName,phNumber,coins,lists);
 }
 
 class _ProfilePageState extends State<ProfilePage> {
@@ -25,12 +26,13 @@ class _ProfilePageState extends State<ProfilePage> {
   final String shopName;
   final int phNumber;
   final int coins;
+  final int lists;
   final AuthService _auth = AuthService();
 
   DocumentSnapshot snapshot;
   User user2 = FirebaseAuth.instance.currentUser;
 
-  _ProfilePageState(this.imageurl, this.shopName, this.phNumber, this.coins);
+  _ProfilePageState(this.imageurl, this.shopName, this.phNumber, this.coins, this.lists);
 
   void getData()async{ //use a Async-await function to get the data
     final data =  await FirebaseFirestore.instance.collection("users").doc(user2.uid).get(); //get the data
@@ -43,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
     getData();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    int canbelist = 5-coins;
+//    int canbelist = 5-coins;
 
     return Stack(
       fit: StackFit.expand,
@@ -159,7 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                               ),
                                             ),
                                             Text(
-                                              canbelist.toString(),
+                                              lists.toString(),
                                               style: TextStyle(
                                                 color: Color.fromRGBO(
                                                     39, 105, 171, 1),
@@ -331,6 +333,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       phone:  snapshot.data()['phoneNumner'],
                                       uid: user2.uid,
                                       coins: snapshot.data()['coins'],
+                                      lists: snapshot.data()['lists'],
                                     )),
 
 

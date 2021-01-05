@@ -7,6 +7,7 @@ class regUser{
   final int phoneNumner;
   final int coins;
   final String imageurl;
+  final int lists;
 
   regUser(
       {
@@ -16,6 +17,7 @@ class regUser{
         @required  this.phoneNumner,
         @required this.coins,
         @required this.imageurl,
+        @required this.lists,
 
       } );
 
@@ -27,6 +29,7 @@ class regUser{
       phoneNumner: json['phoneNumner'] ?? '',
       coins: json['coins'] ?? '',
       imageurl: json['imageurl'] ?? '',
+      lists: json['lists'] ?? '',
 
     );
 

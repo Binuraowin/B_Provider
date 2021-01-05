@@ -283,6 +283,7 @@ class __postStatsState extends State<_postStats> {
                 );
               },
             ),
+
             _PostButton(
               icon: Icon(
                 MdiIcons.delete,

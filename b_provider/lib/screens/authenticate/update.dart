@@ -16,10 +16,11 @@ class UpdatePage extends StatefulWidget {
   final int phone;
   final String uid;
   final int coins;
+  final int lists;
 
-  const UpdatePage({Key key, this.name, this.imageUrl, this.phone, this.uid, this.coins}) : super(key: key);
+  const UpdatePage({Key key, this.name, this.imageUrl, this.phone, this.uid, this.coins, this.lists}) : super(key: key);
   @override
-  _UpdatePageState createState() => _UpdatePageState(name,imageUrl,phone,uid,coins);
+  _UpdatePageState createState() => _UpdatePageState(name,imageUrl,phone,uid,coins,lists);
 }
 
 class _UpdatePageState extends State<UpdatePage> {
@@ -29,6 +30,7 @@ class _UpdatePageState extends State<UpdatePage> {
    int phone;
    String uid;
    int coins;
+   int lists;
 
 //  String name;
 //  int phone;
@@ -41,7 +43,7 @@ class _UpdatePageState extends State<UpdatePage> {
 
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
-  _UpdatePageState(this.name, this.imageUrl, this.phone, this.uid, this.coins);
+  _UpdatePageState(this.name, this.imageUrl, this.phone, this.uid, this.coins, this.lists);
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +153,7 @@ class _UpdatePageState extends State<UpdatePage> {
 
                         if(_formkey.currentState.validate())
                         {
-                          DatabaseService().updateData(name, uid, name, phone, coins, imageUrl);
+                          DatabaseService().updateData(name, uid, name, phone, coins, imageUrl,0);
                           print("successful");
                           Navigator.pop(context);
 

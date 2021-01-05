@@ -29,7 +29,7 @@ Stream<AuthUser> get user{
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user;
       User user2 = FirebaseAuth.instance.currentUser;
-      await DatabaseService().updateData(user.displayName,user.uid, shopName,phoneNumber,5, imageUrl,);
+      await DatabaseService().updateData(user.displayName,user.uid, shopName,phoneNumber,5, imageUrl,0);
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

@@ -4,6 +4,7 @@ import 'package:b_provider/models/categoryModel.dart';
 import 'package:b_provider/models/subCategoryModel.dart';
 import 'package:b_provider/screens/widgets/categoryContainer.dart';
 import 'package:b_provider/services/database.dart';
+import 'package:b_provider/shared/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -54,46 +55,59 @@ class _ProductPageState extends State<ProductPage> {
                 ),
 
 
-
               ),
+
             ),
+
            
             Expanded(
               flex: 1,
               child: StreamBuilder<List<SubCategoryModel>>(
                 stream: DatabaseService().getSubCategoriesById(user2.uid,id),
                 builder: (context,snapshot){
-                  return ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context,index){
-                        return categoryContainer(
-                          id: snapshot.data[index].listId,
-                          likes: snapshot.data[index].likes,
-                          views: snapshot.data[index].views,
-                          imageUrl: snapshot.data[index].imageUrl,
-                          longitude: snapshot.data[index].longitude,
-                          latitude: snapshot.data[index].latitude,
-                          providerName: snapshot.data[index].providerName,
-                          providerTel: snapshot.data[index].providerTel,
-                          units: snapshot.data[index].units,
-                          description: snapshot.data[index].description,
-                          unitPrice: snapshot.data[index].unitPrice,
-                          name: snapshot.data[index].name,
-                          date: snapshot.data[index].date,
-                          providerId: snapshot.data[index].providerId,
-                          categoryId: snapshot.data[index].categoryId ,
-                          providerImage: snapshot.data[index].providerImage,
-                          district: snapshot.data[index].district,
-                          address: snapshot.data[index].address,
+                  if(!snapshot.data.isNotEmpty){
+                    return Loading();
+                  }else{
+                    return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context,index){
+                          return categoryContainer(
+                            id: snapshot.data[index].listId,
+                            likes: snapshot.data[index].likes,
+                            views: snapshot.data[index].views,
+                            imageUrl: snapshot.data[index].imageUrl,
+                            longitude: snapshot.data[index].longitude,
+                            latitude: snapshot.data[index].latitude,
+                            providerName: snapshot.data[index].providerName,
+                            providerTel: snapshot.data[index].providerTel,
+                            units: snapshot.data[index].units,
+                            description: snapshot.data[index].description,
+                            unitPrice: snapshot.data[index].unitPrice,
+                            name: snapshot.data[index].name,
+                            date: snapshot.data[index].date,
+                            providerId: snapshot.data[index].providerId,
+                            categoryId: snapshot.data[index].categoryId ,
+                            providerImage: snapshot.data[index].providerImage,
+                            district: snapshot.data[index].district,
+                            address: snapshot.data[index].address,
 
-                        );
-                      }
-                  );
+                          );
+                        }
+                    );
+                  }
+//                    if (!snapshot.data.exists) {
+//                    return Text("Waiting...");
+//                    } else {
+//                    return Text(orderSnapshot);
+//                    }
+//                    });
+
                 },
               ),
             )
           ],
         ));
+
   }
 
   Widget buildCategory(int index,String categoryName,String catId) {
