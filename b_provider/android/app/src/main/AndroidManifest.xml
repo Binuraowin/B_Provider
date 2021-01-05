@@ -10,7 +10,7 @@
     <application
             android:name="io.flutter.app.FlutterApplication"
             android:label="b_provider"
-            android:icon="@mipmap/ic_launcher" tools:ignore="Instantiatable">
+            android:icon="@mipmap/lastprovider" tools:ignore="Instantiatable">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
                    android:value="AIzaSyAqKdO1KJmDLNesZ5wMby59FDv7qyXmSwE"/>
