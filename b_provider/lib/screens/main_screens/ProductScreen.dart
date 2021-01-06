@@ -42,15 +42,22 @@ class _ProductPageState extends State<ProductPage> {
                 child:StreamBuilder<List<CategoryModel>>(
                   stream: DatabaseService().getCategories(),
                   builder: (context, snapshot) {
-                    return ListView.builder(
-                        itemCount: snapshot.data.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => buildCategory(
-                            index,
-                            snapshot.data[index].categoryName,
-                            snapshot.data[index].id
-                        )
-                    );
+                      if(!snapshot.hasData){
+                      return Center(
+                      child: CircularProgressIndicator(),
+                      );
+                      }else {
+                        return ListView.builder(
+                            itemCount: snapshot.data.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) =>
+                                buildCategory(
+                                    index,
+                                    snapshot.data[index].categoryName,
+                                    snapshot.data[index].id
+                                )
+                        );
+                      }
                   },
                 ),
 
@@ -65,9 +72,11 @@ class _ProductPageState extends State<ProductPage> {
               child: StreamBuilder<List<SubCategoryModel>>(
                 stream: DatabaseService().getSubCategoriesById(user2.uid,id),
                 builder: (context,snapshot){
-                  if(!snapshot.data.isNotEmpty){
-                    return Loading();
-                  }else{
+                  if(!snapshot.hasData){
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }else {
                     return ListView.builder(
                         itemCount: snapshot.data.length,
                         itemBuilder: (context,index){
