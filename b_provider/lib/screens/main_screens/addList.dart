@@ -667,41 +667,7 @@ class _AddListState extends State<AddList> {
       },
     );
   }
-//
-//  Future<void> _shoeerror() async {
-//    return showDialog<void>(
-//      context: context,
-//      barrierDismissible: false, // user must tap button!
-//      builder: (BuildContext context) {
-//        return AlertDialog(
-//          title: Text('Add Details'),
-//          content: SingleChildScrollView(
-//            child: ListBody(
-//              children: <Widget>[
-//                Row(
-//                  children: [
-//                    Icon(Icons.error_outline,color: Colors.red,),
-//                    Text('Add Category,Image ',style: TextStyle(color: Colors.red),),
-//                    Text(' and Location',style: TextStyle(color: Colors.red),),
-//                  ],
-//                )
-//
-//
-//              ],
-//            ),
-//          ),
-//          actions: <Widget>[
-//            TextButton(
-//              child: Text('OK'),
-//              onPressed: () {
-//                Navigator.of(context).pop();
-//              },
-//            ),
-//          ],
-//        );
-//      },
-//    );
-//  }
+
 
 }
 
