@@ -191,6 +191,10 @@ List<Product> _productsfoemSnapshots(QuerySnapshot snapshot) {
     return _db.collection('categories').doc(docId).collection('subCategories').where('providerId', isEqualTo: '$providerId').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => SubCategoryModel.fromJson(doc.data())).toList());
   }
+  Stream<List<SubCategoryModel>> getSubCategorieswithoutid() {
+    return _db.collection('categories').doc('phAKAFpbNEXbW2bqmUfT').collection('subCategories').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => SubCategoryModel.fromJson(doc.data())).toList());
+  }
   Future<void> deleteList(String postId,String docId){
     return _db.collection('categories').doc(docId).collection('subCategories').doc(postId).delete();
   }
